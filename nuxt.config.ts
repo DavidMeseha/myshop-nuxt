@@ -48,14 +48,17 @@ export default defineNuxtConfig({
       apiBaseUrl: process.env.API_BASEURL || "http://localhost:3000",
     },
   },
+
   css: ["./src/assets/css/globals.css"],
+
   tailwindcss: {
     cssPath: "~/assets/css/globals.css",
     configPath: "tailwind.config.ts",
     exposeConfig: true,
     viewer: true,
   },
+
   typescript: {
-    typeCheck: true,
+    strict: true,
   },
 });

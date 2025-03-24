@@ -7,7 +7,7 @@
     >
       <NuxtLink
         class="flex items-center gap-2"
-        to="/"
+        :to="localePath('/')"
         aria-label="to Home Page"
       >
         <Icon class="text-3xl" name="mdi:shopping" />
@@ -27,7 +27,7 @@
 
         <NuxtLink
           class="rounded-sm bg-primary px-6 py-2 whitespace-nowrap text-center text-white"
-          to="/login"
+          :to="localePath('/login')"
           v-if="!isRegistered"
         >
           {{ t("login") }}
@@ -35,7 +35,6 @@
 
         <div
           class="rounded-sm px-6 py-2 whitespace-nowrap text-center text-primary"
-          to="/login"
           v-if="isRegistered"
         >
           {{ userName ?? t("guest") }}
@@ -51,6 +50,7 @@ import NavMenu from "./NavMenu.vue";
 import { useUserStore } from "../../stores/useUserStore";
 
 const { t } = useI18n();
+const localePath = useLocalePath();
 const store = useUserStore();
 
 const userName = store.getUserName;

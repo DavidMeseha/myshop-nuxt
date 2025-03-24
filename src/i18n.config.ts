@@ -1,4 +1,4 @@
-export default async () => ({
+export default defineI18nConfig(async () => ({
   legacy: false,
   locale: "en",
   messages: {
@@ -6,4 +6,4 @@ export default async () => ({
     ar: JSON.parse(JSON.stringify(await import("./locales/ar.json"))),
     fr: JSON.parse(JSON.stringify(await import("./locales/fr.json"))),
   },
-});
+}));

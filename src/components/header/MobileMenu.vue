@@ -1,5 +1,9 @@
 <template>
-  <div class="fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity" @click="close" v-if="isOpen">
+  <div
+    class="fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity"
+    @click="close"
+    v-if="isOpen"
+  >
     <div
       class="fixed inset-y-0 left-0 w-64 transform bg-white shadow-xl transition-transform"
       :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
@@ -39,14 +43,14 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(["close"]);
-
 const route = useRoute();
+const localPath = useLocalePath();
 
 const navItems = [
-  { name: "home", to: "/", icon: "heroicons:home" },
-  { name: "feeds", to: "/feeds", icon: "heroicons:newspaper" },
-  { name: "profile", to: "/user/me", icon: "heroicons:user" },
-  { name: "cart", to: "/cart", icon: "heroicons:shopping-cart" }
+  { name: "home", to: localPath("/"), icon: "heroicons:home" },
+  { name: "feeds", to: localPath("/feeds"), icon: "heroicons:newspaper" },
+  { name: "profile", to: localPath("/user/me"), icon: "heroicons:user" },
+  { name: "cart", to: localPath("/cart"), icon: "heroicons:shopping-cart" },
 ];
 
 const close = () => {

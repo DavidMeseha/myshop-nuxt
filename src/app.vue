@@ -1,11 +1,22 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <Html :lang="htmlAttrs.lang" :dir="htmlAttrs.dir">
+    <Body>
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </Body>
+  </Html>
 </template>
 
 <script lang="ts" setup>
 import { checkTokenValidity, getGuestToken } from "./services/auth.service";
+import { useI18n } from "vue-i18n";
+
+const head = useLocaleHead({
+  addDirAttribute: true, // Adds dir
+  addSeoAttributes: true, // Adds lang
+});
+const htmlAttrs = computed(() => head.value.htmlAttrs!);
 
 if (typeof window !== "undefined") {
   const token = localStorage.getItem("token");

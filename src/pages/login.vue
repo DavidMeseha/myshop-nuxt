@@ -51,7 +51,10 @@
       </form>
 
       <div class="text-center text-sm">
-        <NuxtLink class="text-primary hover:underline" to="/register">
+        <NuxtLink
+          class="text-primary hover:underline"
+          to="localPath('/register')"
+        >
           {{ t("auth.dontHaveAnAccount") }}
         </NuxtLink>
       </div>
@@ -62,11 +65,12 @@
 <script lang="ts" setup>
 import { login } from "../services/auth.service";
 import { useUserStore } from "../stores/useUserStore";
-import { getLastPageBeforSignUp, getToken } from '../lib/localestorageAPI';
+import { getLastPageBeforSignUp, getToken } from "../lib/localestorageAPI";
 
 const { t } = useI18n();
 const router = useRouter();
 const userStore = useUserStore();
+const localPath = useLocalePath();
 
 const form = ref({
   email: "",

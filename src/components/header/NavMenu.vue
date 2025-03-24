@@ -1,7 +1,11 @@
 <template>
   <ul class="flex items-center gap-8 font-semibold text-md">
     <li :key="item.path" v-for="item in navItems">
-      <NuxtLink class="hover:text-primary" :class="{ 'text-primary': isCurrentPath(item.to) }" :to="item.to">
+      <NuxtLink
+        class="hover:text-primary"
+        :class="{ 'text-primary': isCurrentPath(item.to) }"
+        :to="item.to"
+      >
         {{ $t(item.name) }}
       </NuxtLink>
     </li>
@@ -12,24 +16,25 @@
 import { useRoute } from "vue-router";
 
 const route = useRoute();
+const localPath = useLocalePath();
 
 const navItems = [
   {
     name: "home",
-    to: "/"
+    to: localPath("/"),
   },
   {
     name: "feeds",
-    to: "/feeds"
+    to: localPath("/feeds"),
   },
   {
     name: "profile",
-    to: `/user/me`
+    to: localPath(`/user/me`),
   },
   {
     name: "cart",
-    to: `/cart`
-  }
+    to: localPath(`/cart`),
+  },
 ];
 
 const isCurrentPath = (path) => {
