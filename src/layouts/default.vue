@@ -2,7 +2,7 @@
   <Header />
   <HeaderMobileHeader />
   <main
-    className="relative mx-0 mb-14 max-w-screen-xl pb-6 md:mx-auto md:px-4 px-0"
+    class="relative mx-0 mb-14 max-w-screen-xl pb-6 md:mx-auto md:px-4 px-0"
   >
     <slot />
   </main>
