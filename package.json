@@ -13,6 +13,7 @@
     "@nuxt/fonts": "^0.11.0",
     "@nuxt/icon": "^1.11.0",
     "@nuxt/image": "^1.10.0",
+    "@nuxt/ui": "^3.0.1",
     "@nuxtjs/tailwindcss": "^6.13.2",
     "@pinia/nuxt": "^0.10.1",
     "@volar/vue-language-server": "^1.6.5",
@@ -22,6 +23,7 @@
     "tailwind-merge": "^3.0.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
+    "vue-skeletor": "^1.0.6",
     "zod": "^3.24.2"
   },
   "devDependencies": {

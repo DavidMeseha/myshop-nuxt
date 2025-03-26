@@ -25,15 +25,23 @@
 
         <LanguageSwitcher />
 
+        <Skeletor
+          height="40"
+          width="120"
+          class="rounded-sm"
+          v-if="!user"
+          as="div"
+        />
+
         <NuxtLink
           class="rounded-sm bg-primary px-6 py-2 whitespace-nowrap text-center text-white"
           :to="localePath('/login')"
-          v-if="!user?.isRegistered"
+          v-if="user && !user.isRegistered"
         >
           {{ t("login") }}
         </NuxtLink>
 
-        <div v-if="!!user?.isRegistered">
+        <div v-if="user && user.isRegistered">
           <HeaderUserAvatar />
         </div>
       </div>
@@ -46,6 +54,7 @@ import NavMenu from "./NavMenu.vue";
 import { useUserStore } from "~/stores/useUserStore";
 import { storeToRefs } from "pinia";
 import { useTranslation } from "../../composables/useTranslation";
+import { Skeletor } from "vue-skeletor";
 
 const { t } = useTranslation();
 const localePath = useLocalePath();

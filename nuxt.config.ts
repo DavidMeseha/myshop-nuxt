@@ -26,7 +26,7 @@ export default defineNuxtConfig({
       apiBaseUrl: process.env.API_BASEURL,
     },
   },
-  css: ["@/assets/css/globals.css"],
+  css: ["@/assets/css/globals.css", "vue-skeletor/dist/vue-skeletor.css"],
   tailwindcss: {
     cssPath: "@/assets/css/globals.css",
     configPath: "tailwind.config.ts",
