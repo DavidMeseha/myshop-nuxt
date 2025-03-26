@@ -60,6 +60,7 @@
   "topVendors": "Top Vendors",
   "moreProducts": "More Products",
   "similarProducts": "Similar Products",
+  "gender": "Gender",
   "guest": "Guest",
 
   "productNotFound": "Product Not Found!",
@@ -96,6 +97,8 @@
   "auth.passwordFormatError": "Password length must be 8 and contains atleast a number, an english character, a special character (!,*,?,&,%)",
   "auth.wrongCredentials": "Wrong Credentials",
   "auth.inputsRequired": "All inputs are required",
+  "auth.firstName": "First Name",
+  "auth.lastName": "Last Name",
 
   "changePassword.confirmChange": "Change Password",
   "changePassword.current": "Current Password",

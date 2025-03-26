@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="container flex min-h-[calc(100vh-60px)] items-center justify-center py-8"
-  >
+  <div class="flex justify-center pt-20">
     <div
       class="w-full max-w-md space-y-6 rounded-lg border bg-card p-6 shadow-sm"
     >
@@ -12,13 +10,13 @@
       <form class="space-y-4" @submit.prevent="handleSubmit">
         <div class="space-y-2">
           <label class="text-sm font-medium" for="email">{{
-            t("email")
+            t("auth.email")
           }}</label>
           <input
             class="w-full rounded-md border bg-background px-3 py-2 text-sm"
             :class="{ 'border-destructive': !!errors }"
             id="email"
-            :placeholder="t('email')"
+            :placeholder="t('auth.email')"
             type="email"
             v-model="form.email"
           />
@@ -37,8 +35,8 @@
             v-model="form.password"
           />
         </div>
-        <div class="h-4 text-sm text-destructive" f="!!errors">
-          {{ errors }}
+        <div class="h-4 text-sm text-destructive">
+          {{ errors ? errors : "" }}
         </div>
 
         <button
@@ -46,14 +44,14 @@
           :disabled="loading"
           type="submit"
         >
-          {{ loading ? t("loading") : t("login") }}
+          {{ loading ? "......." : t("login") }}
         </button>
       </form>
 
       <div class="text-center text-sm">
         <NuxtLink
           class="text-primary hover:underline"
-          to="localPath('/register')"
+          :to="localPath('/register')"
         >
           {{ t("auth.dontHaveAnAccount") }}
         </NuxtLink>
@@ -63,11 +61,12 @@
 </template>
 
 <script lang="ts" setup>
-import { login } from "../services/auth.service";
 import { useUserStore } from "../stores/useUserStore";
-import { getLastPageBeforSignUp, getToken } from "../lib/localestorageAPI";
+import { getLastPageBeforSignUp, setToken } from "../lib/localestorageAPI";
+import { useTranslation } from "~/composables/useTranslation";
+import { login } from "~/services/auth.service";
 
-const { t } = useI18n();
+const { t } = useTranslation();
 const router = useRouter();
 const userStore = useUserStore();
 const localPath = useLocalePath();
@@ -78,29 +77,33 @@ const form = ref({
 });
 
 const loading = ref(false);
-const errors = ref<string | false>("");
+const errors = ref<string | false>(false);
 
 const handleSubmit = async () => {
+  if (form.value.email === "" || form.value.password === "")
+    return (errors.value = t("auth.inputsRequired"));
+
+  loading.value = true;
   errors.value = false;
+
   try {
-    if (form.value.email === "" || form.value.password === "")
-      return (errors.value = t("auth.inputsRequired"));
+    const res = await login({
+      email: form.value.email,
+      password: form.value.password,
+    });
 
-    loading.value = true;
+    if (res) {
+      console.log("Login response:", res);
+      setToken(res.token);
+      userStore.setUser(res.user);
+      router.push(localPath("/"));
+      return;
+    }
 
-    const res = await login(form.value);
-    if (res.value === null) return;
-
-    const { token, user } = res.value;
-    localStorage.setItem("token", token);
-
-    // Update user store
-    userStore.setUser(user);
-
-    // Redirect to home
-    router.push(getLastPageBeforSignUp());
+    errors.value = t("auth.wrongCredentials");
   } catch (error) {
-    return;
+    console.error("Login error:", error);
+    errors.value = t("serverFail");
   } finally {
     loading.value = false;
   }

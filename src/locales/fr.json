@@ -60,6 +60,7 @@
   "topVendors": "Meilleurs vendeurs",
   "moreProducts": "Plus de produits",
   "similarProducts": "Produits similaires",
+  "gender": "Sexe",
   "guest": "Invité",
 
   "productNotFound": "Produit non trouvé !",
@@ -96,6 +97,8 @@
   "auth.passwordFormatError": "La longueur du mot de passe doit être de 8 caractères et contenir au moins un chiffre, un caractère anglais et un caractère spécial (!, *, ?, &, %)",
   "auth.wrongCredentials": "Identifiants incorrects",
   "auth.inputsRequired": "Tous les champs sont requis",
+  "auth.firstName": "Prénom",
+  "auth.lastName": "Nom de famille",
 
   "changePassword.confirmChange": "Changer le mot de passe",
   "changePassword.current": "Mot de passe actuel",

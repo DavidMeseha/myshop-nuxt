@@ -9,27 +9,34 @@
 </template>
 
 <script lang="ts" setup>
-import { checkTokenValidity, getGuestToken } from "./services/auth.service";
-import { useI18n } from "vue-i18n";
+import { checkTokenValidity, getGuestToken } from "~/services/auth.service";
+import { setToken } from "./lib/localestorageAPI";
+import { useUserStore } from "./stores/useUserStore";
 
-const head = useLocaleHead({
-  addDirAttribute: true, // Adds dir
-  addSeoAttributes: true, // Adds lang
-});
+const head = useLocaleHead();
 const htmlAttrs = computed(() => head.value.htmlAttrs!);
 
-if (typeof window !== "undefined") {
-  const token = localStorage.getItem("token");
-  const userStore = useUserStore();
+const userStore = useUserStore();
 
-  if (!token) {
-    const res = await getGuestToken();
-    if (res.value) localStorage.setItem("token", res.value.token);
-  } else {
+onMounted(async () => {
+  try {
     const res = await checkTokenValidity();
-    if (res.value) userStore.setUser(res.value);
+
+    if (res) {
+      userStore.setUser(res);
+    }
+  } catch (error) {
+    try {
+      const guestRes = await getGuestToken();
+      if (guestRes) {
+        setToken(guestRes.token);
+        userStore.setUser(guestRes.user);
+      }
+    } catch (guestError) {
+      console.error("Failed to fetch guest token:", guestError);
+    }
   }
-}
+});
 </script>
 
 <style>

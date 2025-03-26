@@ -60,6 +60,7 @@
   "topVendors": "أفضل البائعين",
   "moreProducts": "المزيد من المنتجات",
   "similarProducts": "منتجات مشابهة",
+  "gender": "الجنس",
   "guest": "زائر",
 
   "productNotFound": "المنتج غير موجود!",
@@ -96,6 +97,8 @@
   "auth.passwordFormatError": "يجب أن يكون طول كلمة المرور 8 أحرف وتحتوي على الأقل على رقم وحرف إنجليزي وحرف خاص (!,*,?,&,%)",
   "auth.wrongCredentials": "بيانات الدخول غير صحيحة",
   "auth.inputsRequired": "جميع الحقول مطلوبة",
+  "auth.firstName": "الاسم الأول",
+  "auth.lastName": "الاسم الأخير",
 
   "changePassword.confirmChange": "تأكيد تغيير كلمة المرور",
   "changePassword.current": "كلمة المرور الحالية",

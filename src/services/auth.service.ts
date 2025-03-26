@@ -1,21 +1,21 @@
 import { type User } from "../types";
 import type { LoginForm, RegisterForm } from "../schemas/valdation";
-import { fetchApi } from "../lib/fetch";
 
 export async function checkTokenValidity() {
-  return fetchApi<User>("/api/auth/check", { method: "GET" }).then(
-    (res) => res.data
-  );
+  const { $fetch } = useNuxtApp();
+  return $fetch<User>("/api/auth/check", { method: "GET" });
 }
 
 export async function getGuestToken() {
-  return fetchApi<{ user: User; token: string }>("/api/auth/guest", {
+  const { $fetch } = useNuxtApp();
+  return $fetch<{ user: User; token: string }>("/api/auth/guest", {
     method: "GET",
-  }).then((res) => res.data);
+  });
 }
 
 export async function refreshToken() {
-  return fetchApi<{ token: string }>("/api/auth/refreshToken", {
+  const { $fetch } = useNuxtApp();
+  return $fetch<{ token: string }>("/api/auth/refreshToken", {
     method: "GET",
   });
 }
@@ -24,7 +24,9 @@ export async function changeUserPassword(form: {
   original: string;
   new: string;
 }) {
-  return fetchApi("/api/user/ChangePassword", {
+  const { $fetch } = useNuxtApp();
+  return $fetch("/api/user/ChangePassword", {
+    method: "POST",
     body: {
       password: form.original,
       newPassword: form.new,
@@ -33,13 +35,17 @@ export async function changeUserPassword(form: {
 }
 
 export async function registerUser(payload: RegisterForm) {
-  return fetchApi<{ message: string }>("/api/auth/register", {
+  const { $fetch } = useNuxtApp();
+  return $fetch<{ message: string }>("/api/auth/register", {
+    method: "POST",
     body: { ...payload },
   });
 }
 
 export async function login(payload: LoginForm) {
-  return fetchApi<{ user: User; token: string }>("/api/auth/login", {
+  const { $fetch } = useNuxtApp();
+  return $fetch<{ user: User; token: string }>("/api/auth/login", {
+    method: "POST",
     body: { ...payload },
-  }).then((res) => res.data);
+  });
 }

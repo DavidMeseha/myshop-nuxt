@@ -11,54 +11,27 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@pinia/nuxt",
   ],
-
   i18n: {
-    langDir: "locales",
     locales: [
-      {
-        code: "en",
-        name: "English",
-        file: "en.json",
-        dir: "ltr",
-      },
-      {
-        code: "ar",
-        name: "العربية",
-        file: "ar.json",
-        dir: "rtl",
-      },
-      {
-        code: "fr",
-        name: "Français",
-        file: "fr.json",
-        dir: "ltr",
-      },
+      { code: "en", name: "English", file: "en.json", dir: "ltr" },
+      { code: "ar", name: "العربية", file: "ar.json", dir: "rtl" },
+      { code: "fr", name: "Français", file: "fr.json", dir: "ltr" },
     ],
     defaultLocale: "en",
-    strategy: "prefix_except_default",
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: "i18n_redirected",
-      redirectOn: "root",
-    },
+    lazy: true,
+    langDir: "locales/",
   },
-
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.API_BASEURL || "http://localhost:3000",
     },
   },
-
-  css: ["./src/assets/css/globals.css"],
-
+  css: ["@/assets/css/globals.css"],
   tailwindcss: {
-    cssPath: "~/assets/css/globals.css",
+    cssPath: "@/assets/css/globals.css",
     configPath: "tailwind.config.ts",
     exposeConfig: true,
     viewer: true,
   },
-
-  typescript: {
-    strict: true,
-  },
+  typescript: { strict: true },
 });

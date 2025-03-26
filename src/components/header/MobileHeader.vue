@@ -22,10 +22,12 @@
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import MobileMenu from "./MobileMenu.vue";
+import { useTranslation } from "../../composables/useTranslation";
+import type { TranslationKey } from "~/types";
 
 const route = useRoute();
 const isMenuOpen = ref(false);
-const { t } = useI18n();
+const { t } = useTranslation();
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -35,7 +37,7 @@ const closeMenu = () => {
   isMenuOpen.value = false;
 };
 
-const titles = {
+const titles: { [key: string]: TranslationKey } = {
   "/user/orders": "profile.ordersHistory",
   "/user/me": "profile",
   "/user/following": "profile.following",

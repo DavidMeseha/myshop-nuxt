@@ -38,5 +38,8 @@ export const useUserStore = defineStore("user", {
     isRegistered(): boolean {
       return !!this.user?.isRegistered;
     },
+    getUser(): User | null {
+      return this.user;
+    },
   },
 });

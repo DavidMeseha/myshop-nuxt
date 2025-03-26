@@ -28,16 +28,13 @@
         <NuxtLink
           class="rounded-sm bg-primary px-6 py-2 whitespace-nowrap text-center text-white"
           :to="localePath('/login')"
-          v-if="!isRegistered"
+          v-if="!user?.isRegistered"
         >
           {{ t("login") }}
         </NuxtLink>
 
-        <div
-          class="rounded-sm px-6 py-2 whitespace-nowrap text-center text-primary"
-          v-if="isRegistered"
-        >
-          {{ userName ?? t("guest") }}
+        <div v-if="!!user?.isRegistered">
+          <HeaderUserAvatar />
         </div>
       </div>
     </div>
@@ -45,14 +42,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from "vue-i18n";
 import NavMenu from "./NavMenu.vue";
-import { useUserStore } from "../../stores/useUserStore";
+import { useUserStore } from "~/stores/useUserStore";
+import { storeToRefs } from "pinia";
+import { useTranslation } from "../../composables/useTranslation";
 
-const { t } = useI18n();
+const { t } = useTranslation();
 const localePath = useLocalePath();
-const store = useUserStore();
 
-const userName = store.getUserName;
-const isRegistered = store.isRegistered;
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 </script>

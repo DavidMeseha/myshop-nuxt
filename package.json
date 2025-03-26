@@ -13,12 +13,11 @@
     "@nuxt/fonts": "^0.11.0",
     "@nuxt/icon": "^1.11.0",
     "@nuxt/image": "^1.10.0",
-    "@nuxt/types": "^2.18.1",
     "@nuxtjs/tailwindcss": "^6.13.2",
     "@pinia/nuxt": "^0.10.1",
+    "@volar/vue-language-server": "^1.6.5",
     "clsx": "^2.1.1",
     "clx": "^1.0.0",
-    "nuxt": "^3.16.1",
     "pinia": "^3.0.1",
     "tailwind-merge": "^3.0.2",
     "vue": "^3.5.13",
@@ -26,12 +25,18 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@iconify-json/ci": "^1.2.2",
     "@iconify-json/heroicons": "^1.2.2",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ri": "^1.2.5",
+    "@iconify-json/weui": "^1.2.2",
+    "@nuxt/kit": "^3.16.1",
     "@nuxt/schema": "^3.16.1",
+    "@nuxt/types": "^2.18.1",
     "@nuxtjs/i18n": "^9.3.4",
-    "@types/node": "^22.13.12",
+    "@types/node": "^22.13.13",
+    "@vue/compiler-sfc": "^3.5.13",
+    "nuxt": "^3.16.1",
     "typescript": "^5.8.2",
     "vue-tsc": "^2.2.8"
   }

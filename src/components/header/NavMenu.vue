@@ -4,7 +4,7 @@
       <NuxtLink
         class="hover:text-primary"
         :class="{ 'text-primary': isCurrentPath(item.to) }"
-        :to="item.to"
+        :to="localPath(item.to)"
       >
         {{ $t(item.name) }}
       </NuxtLink>
@@ -21,26 +21,27 @@ const localPath = useLocalePath();
 const navItems = [
   {
     name: "home",
-    to: localPath("/"),
+    to: "/",
   },
   {
     name: "feeds",
-    to: localPath("/feeds"),
+    to: "/feeds",
   },
   {
     name: "profile",
-    to: localPath(`/user/me`),
+    to: `/user/me`,
   },
   {
     name: "cart",
-    to: localPath(`/cart`),
+    to: `/cart`,
   },
 ];
 
 const isCurrentPath = (path) => {
-  if (path === "/") {
-    return route.path === path;
+  const localizedPath = localPath(path);
+  if (localizedPath === "/") {
+    return route.path === localizedPath;
   }
-  return route.path.startsWith(path);
+  return route.path.startsWith(localizedPath);
 };
 </script>

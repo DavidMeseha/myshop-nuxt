@@ -8,7 +8,7 @@
   </main>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import Header from "../components/header/Header.vue";
 import HeaderMobileHeader from "../components/header/MobileHeader.vue";
 </script>
