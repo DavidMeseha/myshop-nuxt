@@ -55,6 +55,7 @@ import { useUserStore } from "~/stores/useUserStore";
 import { storeToRefs } from "pinia";
 import { useTranslation } from "../../composables/useTranslation";
 import { Skeletor } from "vue-skeletor";
+import LanguageSwitcher from "../LanguageSwitcher.vue";
 
 const { t } = useTranslation();
 const localePath = useLocalePath();

@@ -20,15 +20,15 @@
 
 <script lang="ts" setup>
 import type { Language } from "../types";
+import Dropdown from "./common/Dropdown.vue";
+
 const { locale, locales } = useI18n();
 const switchPath = useSwitchLocalePath();
 const router = useRouter();
 
 const switchLanguage = async (lang: string, close: () => void) => {
   const path = switchPath(lang as Language);
-  if (path) {
-    await router.push(path);
-  }
+  if (path) await router.push(path);
   close();
 };
 
