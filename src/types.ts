@@ -1,9 +1,11 @@
 import en from "./locales/en.json";
+import ar from "./locales/ar.json";
+import fr from "./locales/fr.json";
 
 export type FieldError = string | false;
 
 export type Language = "en" | "ar" | "fr";
-export type Translation = typeof en;
+export type Translation = typeof en | typeof ar | typeof fr;
 export type TranslationKey = keyof Translation;
 export type TFunction = (key: TranslationKey) => string;
 

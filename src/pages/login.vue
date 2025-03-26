@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center pt-20">
+  <div class="flex justify-center pt-20 px-2 md:px-0">
     <div
       class="w-full max-w-md space-y-6 rounded-lg border bg-card p-6 shadow-sm"
     >
@@ -39,13 +39,9 @@
           {{ errors ? errors : "" }}
         </div>
 
-        <button
-          class="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
-          :disabled="loading"
-          type="submit"
-        >
-          {{ loading ? "......." : t("login") }}
-        </button>
+        <Button class="w-full" :loading="loading" type="submit">
+          {{ t("login") }}
+        </Button>
       </form>
 
       <div class="text-center text-sm">
@@ -63,10 +59,11 @@
 <script lang="ts" setup>
 import { useUserStore } from "../stores/useUserStore";
 import { getLastPageBeforSignUp, setToken } from "../lib/localestorageAPI";
-import { useTranslation } from "~/composables/useTranslation";
+import useTranslation from "~/composables/useTranslation";
 import { login } from "~/services/auth.service";
+import Button from "~/components/common/Button.vue";
 
-const { t } = useTranslation();
+const t = useTranslation();
 const router = useRouter();
 const userStore = useUserStore();
 const localPath = useLocalePath();

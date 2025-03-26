@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center pt-20">
+  <div class="flex justify-center pt-20 px-2 md:px-0">
     <div
       class="w-full max-w-md space-y-6 rounded-lg border bg-card p-6 shadow-sm"
     >
@@ -107,13 +107,9 @@
           {{ errors ? errors : "" }}
         </div>
 
-        <button
-          class="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
-          :disabled="loading"
-          type="submit"
-        >
-          {{ loading ? "......." : t("register") }}
-        </button>
+        <Button class="w-full" :loading="loading" type="submit">
+          {{ t("register") }}
+        </Button>
       </form>
 
       <div class="text-center text-sm">
@@ -129,12 +125,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useTranslation } from "~/composables/useTranslation";
+import useTranslation from "~/composables/useTranslation";
 import { registerUser } from "~/services/auth.service";
 import { useRouter } from "vue-router";
 import type { RegisterForm } from "~/schemas/valdation";
+import Button from "~/components/common/Button.vue";
 
-const { t } = useTranslation();
+const t = useTranslation();
 const router = useRouter();
 const localPath = useLocalePath();
 

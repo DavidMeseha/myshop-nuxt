@@ -2,7 +2,11 @@
   <nav
     class="sticky top-0 z-40 flex w-full justify-between border-b bg-white p-2 md:hidden"
   >
-    <button class="p-0" @click="toggleMenu" aria-label="Open Main Menu">
+    <button
+      class="p-0"
+      @click="mobileMenuRef.openMenu()"
+      aria-label="Open Main Menu"
+    >
       <Icon class="text-black" name="heroicons:bars-3-20-solid" size="25" />
     </button>
     <h1 class="text-xl font-bold">{{ t(currentTitle) }}</h1>
@@ -14,28 +18,20 @@
       />
     </button>
 
-    <MobileMenu :is-open="isMenuOpen" @close="closeMenu" />
+    <MobileMenu ref="mobileMenuRef" />
   </nav>
 </template>
 
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
-import MobileMenu from "./MobileMenu.vue";
-import { useTranslation } from "../../composables/useTranslation";
+import useTranslation from "../../composables/useTranslation";
 import type { TranslationKey } from "~/types";
+import MobileMenu from "~/components/header/MobileMenu.vue";
 
 const route = useRoute();
-const isMenuOpen = ref(false);
-const { t } = useTranslation();
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
-
-const closeMenu = () => {
-  isMenuOpen.value = false;
-};
+const mobileMenuRef = ref();
+const t = useTranslation();
 
 const titles: { [key: string]: TranslationKey } = {
   "/user/orders": "profile.ordersHistory",

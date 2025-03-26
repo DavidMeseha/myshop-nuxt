@@ -31,7 +31,7 @@
           </NuxtLink>
         </li>
         <li class="block hover:bg-gray-100">
-          <a class="flex w-full gap-1 border-t px-2 py-3" @click="handleLogout">
+          <a class="flex w-full border-t px-2 py-3 gap-2" @click="handleLogout">
             <Icon size="20" name="ci:circle-warning" />
             <span class="text-sm font-semibold">{{ t("logout") }}</span>
           </a>
@@ -44,10 +44,11 @@
 <script setup>
 import { headerProfileMenu } from "~/schemas/menus";
 import { useUserStore } from "~/stores/useUserStore";
-import { useTranslation } from "../../composables/useTranslation";
+import useTranslation from "~/composables/useTranslation";
+import useLogout from "~/composables/useLogout";
 
 const localPath = useLocalePath();
-const { t } = useTranslation();
+const t = useTranslation();
 
 const showMenu = ref(false);
 const menu = computed(() => headerProfileMenu(t));
@@ -55,12 +56,13 @@ const menu = computed(() => headerProfileMenu(t));
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 
-const toggleMenu = () => {
-  showMenu.value = !showMenu.value;
+const logout = useLogout();
+const handleLogout = async () => {
+  await logout();
+  showMenu.value = false;
 };
 
-const handleLogout = () => {
-  logout();
-  showMenu.value = false;
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
 };
 </script>

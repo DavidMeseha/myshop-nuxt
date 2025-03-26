@@ -6,11 +6,14 @@
       @click="isOpen = !isOpen"
     >
       <slot name="trigger"></slot>
-      <Icon class="h-4 w-4" :name="isOpen ? 'heroicons:chevron-up' : 'heroicons:chevron-down'" />
+      <Icon
+        class="h-4 w-4"
+        :name="isOpen ? 'heroicons:chevron-up' : 'heroicons:chevron-down'"
+      />
     </button>
 
     <div
-      class="absolute right-0 top-full z-50 mt-1 w-48 rounded-md border bg-white shadow-lg overflow-clip"
+      class="absolute -end-6 top-full z-50 mt-1 w-48 rounded-md border bg-white shadow-lg overflow-clip"
       v-if="isOpen"
     >
       <div>
@@ -26,8 +29,8 @@ import { ref } from "vue";
 defineProps({
   buttonClass: {
     type: String,
-    default: ""
-  }
+    default: "",
+  },
 });
 
 const isOpen = ref(false);

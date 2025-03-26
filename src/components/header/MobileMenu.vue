@@ -1,75 +1,65 @@
 <template>
   <div
-    class="fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity"
-    @click="close"
-    v-if="isOpen"
+    class="fixed w-full bg-white h-screen transform transition-transform"
+    :class="{ '-translate-x-full -ms-2': !isOpen, 'translate-x-0': isOpen }"
   >
-    <div
-      class="fixed inset-y-0 left-0 w-64 transform bg-white shadow-xl transition-transform"
-      :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
-      @click.stop
-    >
-      <div class="flex h-[60px] items-center justify-between border-b px-4">
-        <h2 class="text-lg font-semibold">{{ $t("menu") }}</h2>
-        <button class="p-2" @click="close">
-          <Icon class="text-black" name="heroicons:x-mark-20-solid" size="24" />
-        </button>
-      </div>
-
-      <nav class="p-4">
-        <ul class="space-y-4">
-          <li :key="item.to" v-for="item in navItems">
-            <NuxtLink
-              class="flex items-center text-gray-600 hover:text-primary"
-              :class="{ 'text-primary': isCurrentPath(item.to) }"
-              :to="item.to"
-              @click="close"
-            >
-              <Icon class="mr-3" :name="item.icon" size="20" />
-              {{ $t(item.name) }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </nav>
+    <div class="flex justify-between p-4 border-b">
+      <span class="text-xl font-bold">{{ t("mainMenu") }}</span>
+      <button class="text-gray-600 hover:text-gray-900" @click="closeMenu">
+        ✕
+      </button>
     </div>
+    <ul class="p-4 space-y-5">
+      <li
+        v-for="item in menuItems"
+        :key="item.name"
+        class="flex items-center space-x-4 group"
+      >
+        <Icon
+          :name="item.icon"
+          :class="[
+            'text-xl',
+            isActive(item.to) ? 'text-blue-500' : 'text-gray-700',
+            'group-hover:text-primary'
+          ]"
+        ></Icon>
+        <a
+          :href="item.to"
+          :class="[
+            'text-xl font-medium',
+            isActive(item.to) ? 'text-blue-500' : 'text-gray-700',
+            'group-hover:text-primary'
+          ]"
+        >
+          {{ item.name }}
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import { useRoute } from "vue-router";
+import { mobileMenu } from "~/schemas/menus";
 
-const props = defineProps<{
-  isOpen: boolean;
-}>();
-
-const emit = defineEmits(["close"]);
+const t = useTranslation();
+const isOpen = ref(false);
 const route = useRoute();
-const localPath = useLocalePath();
 
-const navItems = [
-  { name: "home", to: localPath("/"), icon: "heroicons:home" },
-  { name: "feeds", to: localPath("/feeds"), icon: "heroicons:newspaper" },
-  { name: "profile", to: localPath("/user/me"), icon: "heroicons:user" },
-  { name: "cart", to: localPath("/cart"), icon: "heroicons:shopping-cart" },
-];
+const menuItems = mobileMenu(t);
 
-const close = () => {
-  emit("close");
-};
+function openMenu() {
+  isOpen.value = true;
+}
 
-const isCurrentPath = (path: string) => {
-  if (path === "/") {
-    return route.path === path;
-  }
-  return route.path.startsWith(path);
-};
+function closeMenu() {
+  isOpen.value = false;
+}
+
+function isActive(path: string): boolean {
+  return route.path === path;
+}
+
+defineExpose({ openMenu, closeMenu });
 </script>
-
-<style scoped>
-.translate-x-0 {
-  transform: translateX(0);
-}
-.-translate-x-full {
-  transform: translateX(-100%);
-}
-</style>
