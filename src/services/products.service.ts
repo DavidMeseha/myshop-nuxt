@@ -15,7 +15,7 @@ export async function homeFeedProducts({
   page: number;
   limit: number;
 }) {
-  const { data } = await fetchApi<{ data: IFullProduct[]; pages: Pagination }>(
+  return await fetchApi<{ data: IFullProduct[]; pages: Pagination }>(
     "/api/catalog/homefeed",
     {
       params: { page, limit },
@@ -26,7 +26,6 @@ export async function homeFeedProducts({
       },
     }
   );
-  return data.value;
 }
 
 export async function getProductDetails(id: string) {
@@ -73,11 +72,10 @@ export async function getCategories(params: { page: number }) {
 }
 
 export async function getTags(params: { page: number; limit: number }) {
-  const { data } = await fetchApi<{ data: ITag[]; pages: Pagination }>(
+  return await fetchApi<{ data: ITag[]; pages: Pagination }>(
     "/api/catalog/discover/tags",
     { params }
   );
-  return data.value;
 }
 
 export async function getProductsByCateory(

@@ -49,6 +49,8 @@ const titles: { [key: string]: TranslationKey } = {
   "/discover/tags": "discover",
   "/discover/vendors": "discover",
   "/": "home",
+  "/register": "register",
+  "/login": "login",
 };
 
 const currentTitle = computed(() => {

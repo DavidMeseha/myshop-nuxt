@@ -14,4 +14,19 @@
       src="/assets/images/home-panner.jpg"
     />
   </div>
+
+  <div class="space-y-6">
+    <section>
+      <FeaturedTags />
+    </section>
+
+    <section class="px-2 md:px-0">
+      <FeaturedProducts />
+    </section>
+  </div>
 </template>
+
+<script setup lang="ts">
+import FeaturedProducts from "~/components/products/FeaturedProducts.vue";
+import FeaturedTags from "~/components/products/FeaturedTags.vue";
+</script>

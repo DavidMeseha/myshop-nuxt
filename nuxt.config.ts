@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/i18n",
     "@pinia/nuxt",
+    "shadcn-nuxt",
   ],
   i18n: {
     locales: [
@@ -26,7 +27,11 @@ export default defineNuxtConfig({
       apiBaseUrl: process.env.API_BASEURL,
     },
   },
-  css: ["@/assets/css/globals.css", "vue-skeletor/dist/vue-skeletor.css"],
+  css: [
+    "@/assets/css/globals.css",
+    "vue-skeletor/dist/vue-skeletor.css",
+    "vue3-carousel/carousel.css",
+  ],
   tailwindcss: {
     cssPath: "@/assets/css/globals.css",
     configPath: "tailwind.config.ts",

@@ -4,7 +4,7 @@
     :class="{ '-translate-x-full -ms-2': !isOpen, 'translate-x-0': isOpen }"
   >
     <div class="flex justify-between p-4 border-b">
-      <span class="text-xl font-bold">{{ t("mainMenu") }}</span>
+      <span class="text-2xl font-bold">{{ t("mainMenu") }}</span>
       <button class="text-gray-600 hover:text-gray-900" @click="closeMenu">
         ✕
       </button>
