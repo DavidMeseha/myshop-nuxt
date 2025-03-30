@@ -1,10 +1,7 @@
 <template>
   <div
     class="flex justify-center items-center w-full loading-spinner"
-    :class="[
-      isOverlay ? 'absolute inset-0 z-50' : '',
-      containerClass
-    ]"
+    :class="[isOverlay ? 'absolute inset-0 z-50' : '', containerClass]"
   >
     <svg
       class="animate-spin"
@@ -41,7 +38,7 @@ defineProps({
     default: "currentColor",
   },
   size: {
-    type: Number,
+    type: [Number, String],
     default: 22,
   },
   containerClass: {

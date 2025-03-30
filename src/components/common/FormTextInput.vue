@@ -1,5 +1,5 @@
 <template>
-  <div class="base-input">
+  <div>
     <label
       v-if="label"
       :for="id"
@@ -8,15 +8,11 @@
       {{ label }}
     </label>
     <input
+      v-bind="props"
       :id="id"
-      :type="type"
-      :value="modelValue"
-      :placeholder="placeholder"
-      :disabled="disabled"
       :class="[
-        'block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none',
+        'block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed',
         error ? 'border-red-500' : 'border-gray-300',
-        disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white',
       ]"
       @input="
         emit(
@@ -30,22 +26,14 @@
 </template>
 
 <script lang="ts" setup>
+import type { InputHTMLAttributes } from "vue";
+
 defineProps({
   id: { type: String, required: false },
   label: { type: String, required: false },
-  type: { type: String, default: "text" },
-  modelValue: { type: [String, Number], required: true },
-  placeholder: { type: String, required: false },
-  disabled: { type: Boolean, default: false },
   error: { type: String, required: false },
+  props: Object as PropType<InputHTMLAttributes>,
 });
 
 const emit = defineEmits(["update:modelValue"]);
 </script>
-
-<style scoped>
-.base-input {
-  display: flex;
-  flex-direction: column;
-}
-</style>

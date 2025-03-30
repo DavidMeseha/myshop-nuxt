@@ -1,5 +1,4 @@
 <template>
-  <!-- Hero Image -->
   <div class="relative md:my-6">
     <h1
       class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center p-6 text-2xl font-bold text-primary-foreground sm:items-start sm:justify-start sm:text-start sm:text-5xl"
@@ -16,7 +15,7 @@
   </div>
 
   <div class="space-y-6">
-    <section>
+    <section class="px-2 md:px-0">
       <FeaturedTags />
     </section>
 

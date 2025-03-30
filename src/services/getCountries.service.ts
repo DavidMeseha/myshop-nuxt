@@ -1,7 +1,7 @@
-import { fetchApi } from "../lib/fetch";
+import {  useFetchApi } from "../lib/fetch";
 const getCountries = async () => {
   try {
-    const ids = await fetchApi<{ name: string; code: string; _id: string }[]>(
+    const ids = await  useFetchApi<{ name: string; code: string; _id: string }[]>(
       `/api/common/countries`,
       { method: "GET" }
     );

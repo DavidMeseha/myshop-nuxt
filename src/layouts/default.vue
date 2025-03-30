@@ -6,9 +6,11 @@
   >
     <slot />
   </main>
+  <PopupWrapper />
 </template>
 
 <script lang="ts" setup>
-import Header from "../components/header/Header.vue";
+import PopupWrapper from "~/components/popups/PopupWrapper.vue";
+import Header from "../components/header/index.vue";
 import HeaderMobileHeader from "../components/header/MobileHeader.vue";
 </script>

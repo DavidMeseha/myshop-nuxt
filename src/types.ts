@@ -4,10 +4,18 @@ import fr from "./locales/fr.json";
 
 export type FieldError = string | false;
 
-export type Language = "en" | "ar" | "fr";
+export type Language = "en" & "ar" & "fr";
 export type Translation = typeof en | typeof ar | typeof fr;
 export type TranslationKey = keyof Translation;
 export type TFunction = (key: TranslationKey) => string;
+
+export interface FetchError {
+  response: {
+    status: number;
+    statusText: string;
+    _data: any;
+  };
+}
 
 export interface Pagination {
   current: number;

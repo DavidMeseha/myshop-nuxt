@@ -1,8 +1,9 @@
 import type { UseFetchOptions } from "nuxt/app";
 
-export const fetchApi = <T>(url: string, options: UseFetchOptions<T> = {}) => {
+export const useFetchApi = <T>(url: string, options: UseFetchOptions<T> = {}) => {
   const config = useRuntimeConfig();
-  const token = process.client ? localStorage.getItem("token") : "";
+  const { isClient } = useNuxtApp();
+  const token = isClient ? localStorage.getItem("token") : "";
 
   const defaults: UseFetchOptions<T> = {
     baseURL: config.public.apiBaseUrl as string,

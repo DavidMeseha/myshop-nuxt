@@ -11,10 +11,6 @@ export default defineNuxtPlugin((nuxtApp) => {
         options.headers.append("Authorization", `Bearer ${token}`);
       }
     },
-    onResponse({ response }) {
-      // Handle successful responses globally if needed
-      console.log("Response:", response);
-    },
     onResponseError({ response }) {
       console.error("Response error:", response._data || response.statusText);
       // Handle errors globally

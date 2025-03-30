@@ -1,9 +1,9 @@
 export function getLastPageBeforSignUp() {
-  return localStorage.getItem("lastRouteBeforeLogin") ?? "/";
+  return localStorage.getItem("lastVisitedPage") ?? "/";
 }
 
 export function setLastPageBeforSignUp(url: string) {
-  localStorage.setItem("lastRouteBeforeLogin", url);
+  localStorage.setItem("lastVisitedPage", url);
 }
 
 export function getToken() {

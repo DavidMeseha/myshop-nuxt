@@ -4,7 +4,6 @@ import { setToken } from "~/lib/localestorageAPI";
 import { useUserStore } from "~/stores/useUserStore";
 
 export default defineNuxtPlugin(async () => {
-  console.log("initUser.client.ts");
   const userStore = useUserStore();
 
   try {
@@ -20,5 +19,7 @@ export default defineNuxtPlugin(async () => {
     } catch (guestError) {
       console.error("Failed to fetch guest token:", guestError);
     }
+  } finally {
+    userStore.setCartItems();
   }
 });

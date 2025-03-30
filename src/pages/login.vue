@@ -62,6 +62,7 @@ import { getLastPageBeforSignUp, setToken } from "../lib/localestorageAPI";
 import useTranslation from "~/composables/useTranslation";
 import { login } from "~/services/auth.service";
 import Button from "~/components/common/Button.vue";
+import type { FetchError } from "~/types";
 
 const t = useTranslation();
 const router = useRouter();
@@ -90,17 +91,20 @@ const handleSubmit = async () => {
     });
 
     if (res) {
-      console.log("Login response:", res);
       setToken(res.token);
       userStore.setUser(res.user);
-      router.push(localPath("/"));
+      router.push(localPath(getLastPageBeforSignUp()));
       return;
     }
 
     errors.value = t("auth.wrongCredentials");
   } catch (error) {
-    console.error("Login error:", error);
-    errors.value = t("serverFail");
+    console.error(error);
+    if ((error as FetchError).response?.status === 403) {
+      errors.value = t("auth.wrongCredentials");
+    } else {
+      errors.value = t("serverFail");
+    }
   } finally {
     loading.value = false;
   }

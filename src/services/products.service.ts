@@ -1,4 +1,4 @@
-import { fetchApi } from "../lib/fetch";
+import { useFetchApi } from "../lib/fetch";
 import type {
   ICategory,
   IFullProduct,
@@ -8,47 +8,44 @@ import type {
   Pagination,
 } from "../types";
 
-export async function homeFeedProducts({
+export function homeFeedProducts({
   page,
   limit,
 }: {
   page: number;
   limit: number;
 }) {
-  return await fetchApi<{ data: IFullProduct[]; pages: Pagination }>(
+  const { $fetch } = useNuxtApp();
+  return $fetch<{ data: IFullProduct[]; pages: Pagination }>(
     "/api/catalog/homefeed",
     {
       params: { page, limit },
-      headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
     }
   );
 }
 
 export async function getProductDetails(id: string) {
-  const { data } = await fetchApi<IFullProduct>(`/api/catalog/product/${id}`);
+  const { data } = await useFetchApi<IFullProduct>(
+    `/api/catalog/product/${id}`
+  );
   return data.value;
 }
 
 export async function getProductAttributes(id: string) {
-  const { data } = await fetchApi<{
+  return await useFetchApi<{
     _id: string;
     productAttributes: IProductAttribute[];
     hasAttributes: boolean;
     seName: string;
     name: string;
   }>(`/api/product/attributes/${id}`);
-  return data.value;
 }
 
 export async function addReview(
   productId: string,
   form: { reviewText: string; rating: number }
 ) {
-  const { data } = await fetchApi(`/api/user/addReview/${productId}`, {
+  const { data } = await useFetchApi(`/api/user/addReview/${productId}`, {
     method: "POST",
     body: form,
   });
@@ -56,7 +53,7 @@ export async function addReview(
 }
 
 export async function getVendors(params: { page: number; limit: number }) {
-  const { data } = await fetchApi<{ data: IVendor[]; pages: Pagination }>(
+  const { data } = await useFetchApi<{ data: IVendor[]; pages: Pagination }>(
     "/api/catalog/discover/vendors",
     { params }
   );
@@ -64,7 +61,7 @@ export async function getVendors(params: { page: number; limit: number }) {
 }
 
 export async function getCategories(params: { page: number }) {
-  const { data } = await fetchApi<{ data: ICategory[]; pages: Pagination }>(
+  const { data } = await useFetchApi<{ data: ICategory[]; pages: Pagination }>(
     "/api/catalog/discover/categories",
     { params }
   );
@@ -72,7 +69,7 @@ export async function getCategories(params: { page: number }) {
 }
 
 export async function getTags(params: { page: number; limit: number }) {
-  return await fetchApi<{ data: ITag[]; pages: Pagination }>(
+  return await useFetchApi<{ data: ITag[]; pages: Pagination }>(
     "/api/catalog/discover/tags",
     { params }
   );
@@ -82,10 +79,10 @@ export async function getProductsByCateory(
   categoryId: string,
   params: { page: number }
 ) {
-  const { data } = await fetchApi<{ data: IFullProduct[]; pages: Pagination }>(
-    `/api/catalog/CategoryProducts/${categoryId}`,
-    { params }
-  );
+  const { data } = await useFetchApi<{
+    data: IFullProduct[];
+    pages: Pagination;
+  }>(`/api/catalog/CategoryProducts/${categoryId}`, { params });
   return data.value;
 }
 
@@ -93,10 +90,10 @@ export async function getProductsByTag(
   tagId: string,
   params: { page: number }
 ) {
-  const { data } = await fetchApi<{ data: IFullProduct[]; pages: Pagination }>(
-    `/api/Catalog/TagProducts/${tagId}`,
-    { params }
-  );
+  const { data } = await useFetchApi<{
+    data: IFullProduct[];
+    pages: Pagination;
+  }>(`/api/Catalog/TagProducts/${tagId}`, { params });
   return data.value;
 }
 
@@ -104,9 +101,9 @@ export async function getProductsByVendor(
   vendorId: string,
   params: { page: number; limit: number }
 ) {
-  const { data } = await fetchApi<{ data: IFullProduct[]; pages: Pagination }>(
-    `/api/catalog/VendorProducts/${vendorId}`,
-    { params }
-  );
+  const { data } = await useFetchApi<{
+    data: IFullProduct[];
+    pages: Pagination;
+  }>(`/api/catalog/VendorProducts/${vendorId}`, { params });
   return data.value;
 }

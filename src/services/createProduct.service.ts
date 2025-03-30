@@ -1,8 +1,8 @@
 import type { IFullProduct } from "../types";
-import { fetchApi } from "../lib/fetch";
+import {  useFetchApi } from "../lib/fetch";
 
 const createProduct = async (product: IFullProduct) => {
-  return fetchApi("/products", {
+  return  useFetchApi("/products", {
     method: "POST",
     body: { product: { ...product } },
   });

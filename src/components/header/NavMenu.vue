@@ -6,7 +6,7 @@
         :class="{ 'text-primary': isCurrentPath(item.to) }"
         :to="localPath(item.to)"
       >
-        {{ $t(item.name) }}
+        {{ item.name }}
       </NuxtLink>
     </li>
   </ul>
@@ -14,28 +14,34 @@
 
 <script setup>
 import { useRoute } from "vue-router";
+import { useUserStore } from "~/stores/useUserStore";
+import { storeToRefs } from "pinia";
+
+const t = useTranslation();
+const userStore = useUserStore();
+const { cartItems } = storeToRefs(userStore);
 
 const route = useRoute();
 const localPath = useLocalePath();
 
-const navItems = [
+const navItems = computed(() => [
   {
-    name: "home",
+    name: t("home"),
     to: "/",
   },
   {
-    name: "feeds",
+    name: t("feeds"),
     to: "/feeds",
   },
   {
-    name: "profile",
+    name: t("profile"),
     to: `/user/me`,
   },
   {
-    name: "cart",
+    name: `${t(`cart`)}  (${cartItems.value.length})`,
     to: `/cart`,
   },
-];
+]);
 
 const isCurrentPath = (path) => {
   const localizedPath = localPath(path);

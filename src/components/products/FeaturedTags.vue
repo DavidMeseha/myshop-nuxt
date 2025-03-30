@@ -37,7 +37,6 @@ import {
   CarouselNext,
 } from "~/components/ui/carousel";
 import { getTags } from "~/services/products.service";
-import { type ClassValue } from "clsx";
 
 const localPath = useLocalePath();
 const { data } = await getTags({ page: 1, limit: 5 });

@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  components: true,
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   srcDir: "src/",
@@ -11,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@pinia/nuxt",
     "shadcn-nuxt",
+    "motion-v/nuxt",
   ],
   i18n: {
     locales: [
@@ -39,4 +41,7 @@ export default defineNuxtConfig({
     viewer: true,
   },
   typescript: { strict: true },
+  routeRules: {
+    "/**": { appMiddleware: "save-last-page" },
+  },
 });

@@ -4,10 +4,10 @@ import type {
   IOrder,
   IProductAttribute,
 } from "../types";
-import { fetchApi } from "../lib/fetch";
+import {  useFetchApi } from "../lib/fetch";
 
 export async function checkoutData() {
-  return fetchApi<{
+  return  useFetchApi<{
     total: number;
     cartItems: {
       product: IFullProduct;
@@ -19,7 +19,7 @@ export async function checkoutData() {
 }
 
 export async function preperCardPayment() {
-  return fetchApi<{ paymentSecret: string }>("/api/user/preperPayment", {
+  return  useFetchApi<{ paymentSecret: string }>("/api/user/preperPayment", {
     method: "GET",
   });
 }
@@ -28,7 +28,7 @@ export function placeOrder(form: {
   billingMethod: string;
   shippingAddressId: string;
 }) {
-  return fetchApi<IOrder>(`/api/user/order/submit`, {
+  return  useFetchApi<IOrder>(`/api/user/order/submit`, {
     method: "POST",
     body: { ...form },
   });

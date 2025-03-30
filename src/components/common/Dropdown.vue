@@ -1,8 +1,12 @@
 <template>
   <div class="relative">
     <button
-      class="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100"
-      :class="buttonClass"
+      :class="
+        cn(
+          'flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100',
+          buttonClass
+        )
+      "
       @click="isOpen = !isOpen"
     >
       <slot name="trigger"></slot>
@@ -13,7 +17,7 @@
     </button>
 
     <div
-      class="absolute -end-6 top-full z-50 mt-1 w-48 rounded-md border bg-white shadow-lg overflow-clip"
+      class="absolute start-0 top-full z-50 mt-1 rounded-md border bg-white shadow-lg overflow-clip"
       v-if="isOpen"
     >
       <div>
@@ -24,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { cn } from "~/lib/utils";
 
 defineProps({
   buttonClass: {

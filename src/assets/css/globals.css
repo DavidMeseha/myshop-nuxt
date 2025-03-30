@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 :root {
-
   --primary-foreground: 0 0% 100%;
   --primary: 240 80% 48%;
   --primary-300: 240 70% 79%;
@@ -51,9 +50,7 @@ a {
   height: 40px;
   padding: 4px 4px;
 }
-@layer base {
-  :root {
 
-    --radius: 0.5rem;
-  }
+.lh-0 {
+  line-height: 0;
 }

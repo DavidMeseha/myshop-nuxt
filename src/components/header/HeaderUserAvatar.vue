@@ -15,7 +15,7 @@
 
       <ul
         v-if="showMenu"
-        class="absolute end-0 top-12 w-[200px] rounded-lg border bg-white shadow-xl"
+        class="absolute end-0 top-12 w-[200px] rounded-lg border bg-white shadow-xl overflow-clip"
       >
         <li
           v-for="(item, index) in menu"
@@ -31,10 +31,10 @@
           </NuxtLink>
         </li>
         <li class="block hover:bg-gray-100">
-          <a class="flex w-full border-t px-2 py-3 gap-2" @click="handleLogout">
+          <button class="flex w-full border-t px-2 py-3 gap-2" @click="handleLogout">
             <Icon size="20" name="ci:circle-warning" />
             <span class="text-sm font-semibold">{{ t("logout") }}</span>
-          </a>
+          </button>
         </li>
       </ul>
     </div>

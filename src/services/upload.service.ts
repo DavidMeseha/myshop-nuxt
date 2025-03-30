@@ -1,7 +1,7 @@
-import { fetchApi } from "../lib/fetch";
+import {  useFetchApi } from "../lib/fetch";
 
 async function uploadImage(formData: FormData) {
-  const { data } = await fetchApi<{ imageUrl: string }>("/api/common/upload", {
+  const { data } = await  useFetchApi<{ imageUrl: string }>("/api/common/upload", {
     method: "POST",
     body: formData,
     headers: {
