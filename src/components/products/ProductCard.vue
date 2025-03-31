@@ -4,6 +4,7 @@ import ProductImagesCarosel from "./ProductImagesCarosel.vue";
 import type { IFullProduct } from "~/types";
 import useAddToCart from "~/composables/useAddToCart";
 import LoadingSpinner from "~/components/common/LoadingSpinner.vue";
+import useLikeProduct from "../../composables/useLikeProduct";
 
 const { product } = defineProps({
   product: { type: Object as () => IFullProduct, required: true },
@@ -20,25 +21,37 @@ const rate =
     product.productReviewOverview.totalReviews
   ).toFixed(1) ?? 0;
 
-const setIsAddReviewOpen = (state: boolean, productId: string) => {
-  // Logic to handle opening the review modal
-};
-
 const { handleAddToCart, isLoading } = useAddToCart({
   product,
   onSuccess: (shouldAdd) => {
     cart.value.state = shouldAdd;
-    cart.value.count = shouldAdd ? cart.value.count + 1 : cart.value.count - 1;
+    cart.value.count = cart.value.count + (shouldAdd ? 1 : -1);
   },
 });
 
-const likeHandler = (state: boolean) => {
-  // Logic to handle liking a product
-};
+const likeHandler = useLikeProduct({
+  productId: product._id,
+  onClick: (shouldLike) => {
+    like.value.state = shouldLike;
+    like.value.count = like.value.count + (shouldLike ? 1 : -1);
+  },
+  onError: (shouldLike) => {
+    like.value.state = !shouldLike;
+    like.value.count = like.value.count + (shouldLike ? -1 : 1);
+  },
+});
 
-const saveHandler = (state: boolean) => {
-  // Logic to handle saving a product
-};
+const saveHandler = useSaveProduct({
+  productId: product._id,
+  onClick: (shouldSave) => {
+    save.value.state = shouldSave;
+    save.value.count = save.value.count + (shouldSave ? 1 : -1);
+  },
+  onError: (shouldSave) => {
+    save.value.state = !shouldSave;
+    save.value.count = save.value.count + (shouldSave ? -1 : 1);
+  },
+});
 </script>
 
 <template>

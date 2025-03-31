@@ -3,11 +3,11 @@ import type { Config } from "tailwindcss";
 const config = {
   darkMode: ["class"],
   content: [
-    "./src//**/*.{js,ts,jsx,tsx,vue}",
-    "./src//components/**/*.{js,ts,jsx,tsx,vue}",
-    "./src//layouts/**/*.{js,ts,jsx,tsx,vue}",
-    "./src//pages/**/*.{js,ts,jsx,tsx,vue}",
-    "./src//app.vue",
+    "./src/**/*.{js,ts,jsx,tsx,vue}",
+    "./src/components/**/*.{js,ts,jsx,tsx,vue}",
+    "./src/layouts/**/*.{js,ts,jsx,tsx,vue}",
+    "./src/pages/**/*.{js,ts,jsx,tsx,vue}",
+    "./src/app.vue",
   ],
   theme: {
     container: {

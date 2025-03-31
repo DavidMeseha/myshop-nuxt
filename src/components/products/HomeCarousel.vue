@@ -1,9 +1,8 @@
 <template>
   <Carousel
     class="relative w-full md:px-10"
-    :opts="{ align: 'start' }"
+    :opts="{ align: 'start', watchDrag: false }"
     dir="ltr"
-    draggable="false"
   >
     <div class="mx-auto w-20">
       <CarouselPrevious
@@ -15,7 +14,7 @@
         variant="default"
       />
     </div>
-    <CarouselContent class="items-stretch">
+    <CarouselContent class="items-stretch" ondrag="event.preventDefault()">
       <slot />
     </CarouselContent>
   </Carousel>

@@ -1,6 +1,6 @@
 <template>
   <div class="relative h-full" :style="{ height: `${height}px` }">
-    <Carousel class="h-full w-full [&>div]:h-full" dir="ltr">
+    <Carousel dir="ltr" class="h-full w-full [&>div]:h-full" ref="emblaRef">
       <CarouselContent class="h-full">
         <CarouselItem
           v-for="img in images"

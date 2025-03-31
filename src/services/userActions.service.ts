@@ -21,17 +21,17 @@ export async function addToCart(
 }
 
 export async function likeProduct(id: string) {
-  const { data } = await useFetchApi(`/api/user/likeProduct/${id}`, {
+  const { $fetch } = useNuxtApp();
+  return await $fetch(`/api/user/likeProduct/${id}`, {
     method: "POST",
   });
-  return data.value;
 }
 
 export async function unLikeProduct(id: string) {
-  const { data } = await useFetchApi(`/api/user/unlikeProduct/${id}`, {
+  const { $fetch } = useNuxtApp();
+  return await $fetch(`/api/user/unlikeProduct/${id}`, {
     method: "POST",
   });
-  return data.value;
 }
 
 export async function followVendor(id: string) {
@@ -49,15 +49,15 @@ export async function unfollowVendor(id: string) {
 }
 
 export async function saveProduct(id: string) {
-  const { data } = await useFetchApi(`/api/user/saveProduct/${id}`, {
+  const { $fetch } = useNuxtApp();
+  return await $fetch(`/api/user/saveProduct/${id}`, {
     method: "POST",
   });
-  return data.value;
 }
 
 export async function unsaveProduct(id: string) {
-  const { data } = await useFetchApi(`/api/user/unsaveProduct/${id}`, {
+  const { $fetch } = useNuxtApp();
+  return await $fetch(`/api/user/unsaveProduct/${id}`, {
     method: "POST",
   });
-  return data.value;
 }
