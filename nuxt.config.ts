@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@pinia/nuxt",
     "shadcn-nuxt",
-    "motion-v/nuxt",
   ],
   i18n: {
     locales: [

@@ -3,7 +3,10 @@
     <Body>
       <NuxtLoadingIndicator color="#3A3DF0" :height="6" class="z-50" />
       <NuxtLayout>
-        <NuxtPage />
+        <div>
+          <NuxtPage />
+          <Toaster position="top-right" richColors closeButton />
+        </div>
       </NuxtLayout>
     </Body>
   </Html>
