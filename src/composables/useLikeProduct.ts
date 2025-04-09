@@ -19,6 +19,7 @@ export default function useLikeProduct({
   const isLoading = ref(false);
   const timeoutId = ref<number | null>(null);
   const { $toast } = useNuxtApp();
+  const t = useTranslation();
 
   const likeMutation = async () => {
     isLoading.value = true;
@@ -50,8 +51,14 @@ export default function useLikeProduct({
   const handleLikeToggle = (shouldLike: boolean) => {
     if (!user) return;
 
-    if (!user.isRegistered)
-      return $toast.error("Please login to like products");
+    if (!user.isRegistered) {
+      return $toast.warning(t("loginToPerformAction"), {
+        action: {
+          label: t("login"),
+          onClick: () => navigateTo("/login"),
+        },
+      });
+    }
 
     onClick?.(shouldLike);
 

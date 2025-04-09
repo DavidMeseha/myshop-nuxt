@@ -19,6 +19,7 @@ export default function usesaveProduct({
   const isLoading = ref(false);
   const timeoutId = ref<number | null>(null);
   const { $toast } = useNuxtApp();
+  const t = useTranslation();
 
   const saveMutation = async () => {
     isLoading.value = true;
@@ -50,8 +51,14 @@ export default function usesaveProduct({
   const handleSaveToggle = (shouldSave: boolean) => {
     if (!user) return;
 
-    if (!user.isRegistered)
-      return $toast.error("Please login to save products");
+    if (!user.isRegistered) {
+      return $toast.warning(t("loginToPerformAction"), {
+        action: {
+          label: t("login"),
+          onClick: () => navigateTo("/login"),
+        },
+      });
+    }
 
     onClick?.(shouldSave);
 

@@ -5,7 +5,19 @@
       <NuxtLayout>
         <div>
           <NuxtPage />
-          <Toaster position="top-right" richColors closeButton />
+          <Toaster
+            position="top-right"
+            :expand="true"
+            richColors
+            :toastOptions="{
+              actionButtonStyle: {
+                backgroundColor: '#3A3DF0',
+                color: 'white',
+                padding: '6px 12px',
+                borderRadius: '4px',
+              },
+            }"
+          />
         </div>
       </NuxtLayout>
     </Body>
