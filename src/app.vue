@@ -3,12 +3,12 @@
     <Body>
       <NuxtLoadingIndicator color="#3A3DF0" :height="6" class="z-50" />
       <NuxtLayout>
-        <div>
-          <NuxtPage />
+        <NuxtPage />
+        <ClientOnly>
           <Toaster
             position="top-right"
             :expand="true"
-            richColors
+            :richColors="true"
             :toastOptions="{
               actionButtonStyle: {
                 backgroundColor: '#3A3DF0',
@@ -18,7 +18,7 @@
               },
             }"
           />
-        </div>
+        </ClientOnly>
       </NuxtLayout>
     </Body>
   </Html>

@@ -6,7 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     baseURL: runtimeConfig.public.apiBaseUrl,
     onRequest({ options }) {
       // Add Authorization token to headers if available
-      const token = localStorage.getItem("token");
+      const token = import.meta.client ? localStorage.getItem("token") : "";
       if (token) {
         options.headers.append("Authorization", `Bearer ${token}`);
       }

@@ -107,3 +107,8 @@ export async function getProductsByVendor(
   }>(`/api/catalog/VendorProducts/${vendorId}`, { params });
   return data.value;
 }
+
+export async function getProductBySeName(seName: string) {
+  const { $fetch } = useNuxtApp();
+  return await $fetch<IFullProduct>(`/api/product/details/${seName}`);
+}

@@ -24,7 +24,7 @@ export default function usesaveProduct({
   const saveMutation = async () => {
     isLoading.value = true;
     await saveProduct(productId)
-      .then((res) => {
+      .then(() => {
         onSuccess?.(true);
       })
       .catch((err) => {
