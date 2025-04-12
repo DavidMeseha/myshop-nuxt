@@ -4,11 +4,13 @@
       <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div class="mx-auto max-w-md shrink-0 lg:max-w-md">
-            <ProductImagesCarosel
-              :height="500"
-              :images="product.pictures"
-              :productName="product.name"
-            />
+            <div class="sticky top-20">
+              <ProductImagesCarosel
+                :height="500"
+                :images="product.pictures"
+                :productName="product.name"
+              />
+            </div>
           </div>
 
           <div class="mt-6 sm:mt-8 lg:mt-0">
