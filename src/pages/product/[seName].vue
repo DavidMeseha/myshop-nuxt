@@ -37,20 +37,23 @@
               />
             </div>
 
-            <div class="mt-6 flex items-center gap-4 sm:mt-8">
+            <div class="mt-6 flex items-center gap-4 sm:mt-8" v-if="!actions">
+              Loading actions ... .
+            </div>
+            <div v-else class="mt-6 flex items-center gap-4 sm:mt-8">
               <ProductLikeButton
-                :isLiked="product.isLiked"
+                :isLiked="actions.isLiked"
                 :likesCount="product.likes"
                 :productId="product._id"
               />
               <ProductSaveButton
-                :isSaved="product.isSaved"
+                :isSaved="actions.isSaved"
                 :productId="product._id"
                 :savedCount="product.saves"
               />
               <ProductCartButton
                 :attributes="customAttributes"
-                :isInCart="product.isInCart"
+                :isInCart="actions.isInCart"
                 :cartCount="product.carts"
                 :product="product"
               />
@@ -72,13 +75,21 @@ import ProductImagesCarosel from "~/components/products/ProductImagesCarosel.vue
 import ProductLikeButton from "~/components/products/ProductLikeButton.vue";
 import ProductSaveButton from "~/components/products/ProductSaveButton.vue";
 import { selectDefaultAttributes } from "~/lib/misc";
-import { getProductBySeName } from "~/services/products.service";
+import {
+  getProductBySeName,
+  getProductUserActions,
+} from "~/services/products.service";
 import type { IProductAttribute } from "~/types";
 
 const route = useRoute();
 const seName = route.params.seName as string;
 const { data: product } = await useAsyncData(`product-${seName}`, () =>
   getProductBySeName(seName)
+);
+const { data: actions } = await useAsyncData(
+  `product-actions-${seName}`,
+  () => getProductUserActions(seName),
+  { server: false }
 );
 
 const customAttributes = ref<IProductAttribute[]>(

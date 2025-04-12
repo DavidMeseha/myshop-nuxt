@@ -110,5 +110,15 @@ export async function getProductsByVendor(
 
 export async function getProductBySeName(seName: string) {
   const { $fetch } = useNuxtApp();
-  return await $fetch<IFullProduct>(`/api/product/details/${seName}`);
+  return $fetch<IFullProduct>(`/api/product/details/${seName}`);
+}
+
+export async function getProductUserActions(seName: string) {
+  const { $fetch } = useNuxtApp();
+  return $fetch<{
+    isLiked: boolean;
+    isSaved: boolean;
+    isInCart: boolean;
+    isReviewed: boolean;
+  }>(`/api/product/actions/${seName}`);
 }
