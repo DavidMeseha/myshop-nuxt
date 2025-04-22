@@ -5,7 +5,7 @@
         <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div class="mx-auto max-w-md shrink-0 lg:max-w-md">
             <div class="sticky top-20">
-              <ProductImagesCarosel
+              <ProductsProductImagesCarosel
                 :height="500"
                 :images="product.pictures"
                 :productName="product.name"
@@ -43,17 +43,17 @@
               Loading actions ... .
             </div>
             <div v-else class="mt-6 flex items-center gap-4 sm:mt-8">
-              <ProductLikeButton
+              <ProductsProductLikeButton
                 :isLiked="actions.isLiked"
                 :likesCount="product.likes"
                 :productId="product._id"
               />
-              <ProductSaveButton
+              <ProductsProductSaveButton
                 :isSaved="actions.isSaved"
                 :productId="product._id"
                 :savedCount="product.saves"
               />
-              <ProductCartButton
+              <ProductsProductCartButton
                 :attributes="customAttributes"
                 :isInCart="actions.isInCart"
                 :cartCount="product.carts"
@@ -72,11 +72,8 @@
 </template>
 
 <script setup lang="ts">
-import ProductCartButton from "~/components/products/ProductCartButton.vue";
-import ProductImagesCarosel from "~/components/products/ProductImagesCarosel.vue";
-import ProductLikeButton from "~/components/products/ProductLikeButton.vue";
-import ProductSaveButton from "~/components/products/ProductSaveButton.vue";
 import { selectDefaultAttributes } from "~/lib/misc";
+import useProductPageHead from "~/meta-composables/useProductPageHead";
 import {
   getProductBySeName,
   getProductUserActions,
@@ -85,9 +82,11 @@ import type { IProductAttribute } from "~/types";
 
 const route = useRoute();
 const seName = route.params.seName as string;
+
 const { data: product } = await useAsyncData(`product-${seName}`, () =>
   getProductBySeName(seName)
 );
+
 const { data: actions } = await useAsyncData(
   `product-actions-${seName}`,
   () => getProductUserActions(seName),
@@ -126,37 +125,5 @@ const handleAttributesChange = (attributeId: string, value: string[]) => {
   customAttributes.value = [...tempAttributes];
 };
 
-// Meta tags setup
-useHead(() => ({
-  title: product.value?.name ?? "Product",
-  meta: [
-    { name: "description", content: product.value?.shortDescription ?? "" },
-    { property: "og:title", content: product.value?.name ?? "Product" },
-    {
-      property: "og:description",
-      content: product.value?.shortDescription ?? "",
-    },
-    {
-      property: "og:image",
-      content: product.value?.pictures[0]?.imageUrl ?? "",
-    },
-    { property: "og:type", content: "product" },
-    {
-      property: "og:price:amount",
-      content: product.value?.price.price.toString() ?? "",
-    },
-    { property: "og:price:currency", content: "USD" },
-    { name: "twitter:card", content: "product" },
-    { name: "twitter:title", content: product.value?.name ?? "Product" },
-    {
-      name: "twitter:description",
-      content: product.value?.shortDescription ?? "",
-    },
-    {
-      name: "twitter:image",
-      content: product.value?.pictures[0]?.imageUrl ?? "",
-    },
-  ],
-  link: [{ rel: "canonical", href: `${route.path}` }],
-}));
+useProductPageHead(product.value);
 </script>

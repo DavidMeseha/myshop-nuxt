@@ -90,11 +90,11 @@ export async function getProductsByTag(
   tagId: string,
   params: { page: number }
 ) {
-  const { data } = await useFetchApi<{
+  const { $fetch } = useNuxtApp();
+  return $fetch<{
     data: IFullProduct[];
     pages: Pagination;
   }>(`/api/Catalog/TagProducts/${tagId}`, { params });
-  return data.value;
 }
 
 export async function getProductsByVendor(
@@ -121,4 +121,9 @@ export async function getProductUserActions(seName: string) {
     isInCart: boolean;
     isReviewed: boolean;
   }>(`/api/product/actions/${seName}`);
+}
+
+export function getTagInfo(seName: string) {
+  const { $fetch } = useNuxtApp();
+  return $fetch<ITag>(`/api/Catalog/tag/${seName}`);
 }

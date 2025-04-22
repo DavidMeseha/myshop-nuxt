@@ -5,9 +5,9 @@
       v-if="!!products?.data && status === 'success'"
       v-for="product in products.data"
       :key="product._id"
-      class="h-full basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+      class="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 flex justify-stretch items-stretch"
     >
-      <ProductsProductCard :product="product" />
+      <ProductsProductCard :product="product" custom-class="h-full" />
     </CarouselItem>
     <CarouselItem
       v-else

@@ -35,6 +35,7 @@ export default function useAddToCart({ product, onSuccess }: CartHookProps) {
     attributes,
     quantity,
   }: CartMutationProps) => {
+    closePopup();
     isLoading.value = true;
     await addToCart(product._id, attributes, quantity)
       .then((res) => {
@@ -78,7 +79,7 @@ export default function useAddToCart({ product, onSuccess }: CartHookProps) {
     selectedAttributes?: IProductAttribute[],
     quantity: number = 1
   ) => {
-    console.log(product);
+    
     if (!user) return;
     if (isLoading.value) return;
 
