@@ -15,13 +15,38 @@ export default defineNuxtConfig({
   ],
   i18n: {
     locales: [
-      { code: "en", name: "English", file: "en.json", dir: "ltr" },
-      { code: "ar", name: "العربية", file: "ar.json", dir: "rtl" },
-      { code: "fr", name: "Français", file: "fr.json", dir: "ltr" },
+      {
+        code: "en",
+        iso: "en-US",
+        name: "English",
+        file: "en.json",
+        dir: "ltr",
+      },
+      {
+        code: "ar",
+        iso: "ar-SA",
+        name: "العربية",
+        file: "ar.json",
+        dir: "rtl",
+      },
+      {
+        code: "fr",
+        iso: "fr-FR",
+        name: "Français",
+        file: "fr.json",
+        dir: "ltr",
+      },
     ],
     defaultLocale: "en",
     lazy: true,
     langDir: "locales/",
+    strategy: "prefix",
+    baseUrl: process.env.PUBLIC_URL || "http://localhost:3000",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+    },
   },
   runtimeConfig: {
     public: {

@@ -29,10 +29,6 @@ const navItems = computed(() => [
     name: t("home"),
     to: "/",
   },
-  // {
-  //   name: t("feeds"),
-  //   to: "/feeds",
-  // },
   {
     name: t("profile"),
     to: `/user/me`,
@@ -45,9 +41,6 @@ const navItems = computed(() => [
 
 const isCurrentPath = (path) => {
   const localizedPath = localPath(path);
-  if (localizedPath === "/") {
-    return route.path === localizedPath;
-  }
-  return route.path.startsWith(localizedPath);
+  return route.path === localizedPath;
 };
 </script>
