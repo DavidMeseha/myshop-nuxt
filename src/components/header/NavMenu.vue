@@ -29,10 +29,10 @@ const navItems = computed(() => [
     name: t("home"),
     to: "/",
   },
-  {
-    name: t("feeds"),
-    to: "/feeds",
-  },
+  // {
+  //   name: t("feeds"),
+  //   to: "/feeds",
+  // },
   {
     name: t("profile"),
     to: `/user/me`,

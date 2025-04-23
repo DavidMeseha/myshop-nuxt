@@ -38,10 +38,9 @@ export default function useAddToCart({ product, onSuccess }: CartHookProps) {
     closePopup();
     isLoading.value = true;
     await addToCart(product._id, attributes, quantity)
-      .then((res) => {
+      .then(() => {
         setCartItems();
         onSuccess?.(true);
-        closePopup();
       })
       .catch((err) => {
         if (err.response.status === 409) onSuccess?.(true);
@@ -79,7 +78,6 @@ export default function useAddToCart({ product, onSuccess }: CartHookProps) {
     selectedAttributes?: IProductAttribute[],
     quantity: number = 1
   ) => {
-    
     if (!user) return;
     if (isLoading.value) return;
 
