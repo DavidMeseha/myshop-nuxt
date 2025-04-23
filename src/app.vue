@@ -1,5 +1,5 @@
 <template>
-  <Html :lang="htmlAttrs.lang" :dir="htmlAttrs.dir">
+  <Html>
     <Body>
       <NuxtLoadingIndicator color="#3A3DF0" :height="6" class="z-50" />
       <NuxtLayout>
@@ -25,6 +25,13 @@
 </template>
 
 <script lang="ts" setup>
-const head = useLocaleHead();
-const htmlAttrs = computed(() => head.value.htmlAttrs!);
+import { Toaster } from 'vue-sonner';
+
+const i18nHead = useLocaleHead();
+
+useHead(() => ({
+  htmlAttrs: { ...i18nHead.value.htmlAttrs },
+  link: [...(i18nHead.value.link || [])],
+  meta: [...(i18nHead.value.meta || [])],
+}));
 </script>

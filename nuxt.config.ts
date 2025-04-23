@@ -18,6 +18,7 @@ export default defineNuxtConfig({
       {
         code: "en",
         iso: "en-US",
+        language: "en-US",
         name: "English",
         file: "en.json",
         dir: "ltr",
@@ -25,6 +26,7 @@ export default defineNuxtConfig({
       {
         code: "ar",
         iso: "ar-SA",
+        language: "ar-SA",
         name: "العربية",
         file: "ar.json",
         dir: "rtl",
@@ -32,6 +34,7 @@ export default defineNuxtConfig({
       {
         code: "fr",
         iso: "fr-FR",
+        language: "fr-FR",
         name: "Français",
         file: "fr.json",
         dir: "ltr",
