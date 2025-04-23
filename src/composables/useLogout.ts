@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 
 export default function useLogout() {
   const userStore = useUserStore();
+  const { cartItems } = storeToRefs(userStore);
   const router = useRouter();
 
   const logout = async () => {
@@ -15,10 +16,14 @@ export default function useLogout() {
       if (guestRes) {
         setToken(guestRes.token);
         userStore.setUser(guestRes.user);
+        userStore.setCartItems();
+        router.push("/login");
       }
-      router.push("/login");
     } catch (error) {
-      console.error("Failed to log out and fetch guest token:", error);
+      const { $toast } = useNuxtApp();
+      $toast.error(
+        "Failed to log out and fetch guest token some actions my fail"
+      );
     }
   };
 
