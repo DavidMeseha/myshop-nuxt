@@ -17,7 +17,6 @@
     "@nuxtjs/tailwindcss": "^6.13.2",
     "@pinia/nuxt": "^0.10.1",
     "@tailwindcss/forms": "^0.5.10",
-    "@volar/vue-language-server": "^1.6.5",
     "@vueuse/core": "^13.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -48,10 +47,8 @@
     "@nuxt/types": "^2.18.1",
     "@nuxtjs/i18n": "^9.3.4",
     "@types/node": "^22.14.0",
-    "@vue/compiler-sfc": "^3.5.13",
     "nuxt": "^3.16.1",
     "shadcn-nuxt": "^1.0.3",
-    "typescript": "^5.8.2",
-    "vue-tsc": "^2.2.8"
+    "typescript": "^5.8.2"
   }
 }
