@@ -32,7 +32,7 @@ export default defineNuxtPlugin(() => {
     }
   };
 
-  // Start interval if user is already logged in
+  // Start the refresh interval if the user is registered
   if (user.value?.isRegistered) {
     startRefreshInterval();
   }

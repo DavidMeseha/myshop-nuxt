@@ -33,6 +33,7 @@ const { data: product } = useAsyncData(`product-attributes-${productId}`, () =>
   getProductAttributes(productId).then((res) => {
     if (res.productAttributes.length === 0) return res;
     customAttributes.value = selectDefaultAttributes(res.productAttributes);
+    return res;
   })
 );
 
