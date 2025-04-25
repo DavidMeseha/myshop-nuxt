@@ -74,14 +74,12 @@
 <script setup lang="ts">
 import { selectDefaultAttributes } from "~/lib/misc";
 import useProductPageHead from "~/meta-composables/useProductPageHead";
-import {
-  getProductBySeName,
-  getProductUserActions,
-} from "~/services/products.service";
+import useProductsRepo from "~/services/products.service";
 import type { IProductAttribute } from "~/types";
 
 const route = useRoute();
 const seName = route.params.seName as string;
+const { getProductBySeName, getProductUserActions } = useProductsRepo();
 
 const { data: product } = await useAsyncData(`product-${seName}`, () =>
   getProductBySeName(seName)

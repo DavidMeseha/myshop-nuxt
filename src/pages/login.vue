@@ -60,7 +60,7 @@
 import { useUserStore } from "../stores/useUserStore";
 import { getLastPageBeforSignUp, setToken } from "../lib/localestorageAPI";
 import useTranslation from "~/composables/useTranslation";
-import { login } from "~/services/auth.service";
+import useAuthRepo from "~/services/auth.service";
 import Button from "~/components/common/Button.vue";
 import type { FetchError } from "~/types";
 
@@ -68,6 +68,7 @@ const t = useTranslation();
 const router = useRouter();
 const userStore = useUserStore();
 const localPath = useLocalePath();
+const { login } = useAuthRepo();
 
 const form = ref({
   email: "",

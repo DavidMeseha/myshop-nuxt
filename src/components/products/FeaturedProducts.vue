@@ -23,8 +23,10 @@
 <script lang="ts" setup>
 import SectionHeader from "~/components/common/SectionHeader.vue";
 import { CarouselItem } from "~/components/ui/carousel";
-import { homeFeedProducts } from "~/services/products.service";
+import useProductsRepo from "~/services/products.service";
 import HomeCarousel from "./HomeCarousel.vue";
+
+const { homeFeedProducts } = useProductsRepo();
 
 const { data: products, status } = await useAsyncData(
   "products",

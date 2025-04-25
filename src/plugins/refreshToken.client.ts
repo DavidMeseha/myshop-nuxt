@@ -1,25 +1,58 @@
 import { defineNuxtPlugin } from "#app";
 import { useUserStore } from "~/stores/useUserStore";
 import { storeToRefs } from "pinia";
-import { refreshToken } from "~/services/auth.service";
+import useAuthRepo from "~/services/auth.service";
 
 export default defineNuxtPlugin(() => {
-  let refreshInterval: NodeJS.Timeout | null = null;
-
   const userStore = useUserStore();
+  const { refreshToken } = useAuthRepo();
   const { user } = storeToRefs(userStore);
 
-  if (user.value?.isRegistered) {
-    refreshInterval = setInterval(() => {
-      refreshToken().catch((error) => {
-        console.error("Failed to refresh token:", error);
-      });
-    }, 15 * 60 * 1000); // 15 minutes
-  }
+  let refreshInterval: NodeJS.Timeout | null = null;
 
-  window.addEventListener("beforeunload", () => {
+  const startRefreshInterval = () => {
+    if (refreshInterval) clearInterval(refreshInterval);
+
+    refreshInterval = setInterval(async () => {
+      if (!user.value?.isRegistered) return;
+
+      try {
+        await refreshToken();
+      } catch (error) {
+        console.error("Failed to refresh token:", error);
+        stopRefreshInterval();
+      }
+    }, 14 * 60 * 1000);
+  };
+
+  const stopRefreshInterval = () => {
     if (refreshInterval) {
       clearInterval(refreshInterval);
+      refreshInterval = null;
     }
+  };
+
+  // Start interval if user is already logged in
+  if (user.value?.isRegistered) {
+    startRefreshInterval();
+  }
+
+  // Watch for user login/logout
+  watch(
+    () => user.value?.isRegistered,
+    (isRegistered) => {
+      if (isRegistered) {
+        startRefreshInterval();
+      } else {
+        stopRefreshInterval();
+      }
+    }
+  );
+
+  window.addEventListener("beforeunload", stopRefreshInterval);
+
+  onUnmounted(() => {
+    stopRefreshInterval();
+    window.removeEventListener("beforeunload", stopRefreshInterval);
   });
 });

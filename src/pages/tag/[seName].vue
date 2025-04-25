@@ -2,11 +2,12 @@
 import { useIntersectionObserver } from "@vueuse/core";
 import ProductsGrid from "~/components/products/ProductsGrid.vue";
 import useTagPageHead from "~/meta-composables/useTagPageHead";
-import { getProductsByTag, getTagInfo } from "~/services/products.service";
+import useProductsRepo from "~/services/products.service";
 import type { IFullProduct, Pagination } from "~/types";
 
 const route = useRoute();
 const seName = route.params.seName as string;
+const { getTagInfo, getProductsByTag } = useProductsRepo();
 
 const sentinel = ref<HTMLDivElement | null>(null);
 const currentPage = ref(1);

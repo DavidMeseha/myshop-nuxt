@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { selectDefaultAttributes } from "~/lib/misc";
-import { getProductAttributes } from "~/services/products.service";
+import useProductsRepo from "~/services/products.service";
 import Button from "~/components/common/Button.vue";
 import ProductAttributes from "~/components/ProductAttributes.vue";
 import type { IProductAttribute } from "~/types";
@@ -25,17 +25,16 @@ const { productId, action } = defineProps({
 });
 
 const t = useTranslation();
+const { getProductAttributes } = useProductsRepo();
 const customAttributes = ref<IProductAttribute[]>([]);
 const handleSubmit = () => action(customAttributes.value);
 
-const { data: product } = await getProductAttributes(productId).then((res) => {
-  if (res.data.value)
-    customAttributes.value = selectDefaultAttributes(
-      res.data.value.productAttributes
-    );
-  return res;
-});
-
+const { data: product } = useAsyncData(`product-attributes-${productId}`, () =>
+  getProductAttributes(productId).then((res) => {
+    if (res.productAttributes.length === 0) return res;
+    customAttributes.value = selectDefaultAttributes(res.productAttributes);
+  })
+);
 
 const handleAttributesChange = (attributeId: string, value: string[]) => {
   if (!product.value) return;

@@ -1,12 +1,13 @@
 import { useUserStore } from "~/stores/useUserStore";
 import { removeToken, setToken } from "~/lib/localestorageAPI";
-import { getGuestToken } from "~/services/auth.service";
+import useAuthRepo from "~/services/auth.service";
 import { useRouter } from "vue-router";
 
 export default function useLogout() {
   const userStore = useUserStore();
-  const { cartItems } = storeToRefs(userStore);
+  const { getGuestToken } = useAuthRepo();
   const router = useRouter();
+  const localPath = useLocalePath();
 
   const logout = async () => {
     try {
@@ -17,7 +18,7 @@ export default function useLogout() {
         setToken(guestRes.token);
         userStore.setUser(guestRes.user);
         userStore.setCartItems();
-        router.push("/login");
+        router.push(localPath("/login"));
       }
     } catch (error) {
       const { $toast } = useNuxtApp();

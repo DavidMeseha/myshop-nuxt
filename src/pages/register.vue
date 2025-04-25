@@ -126,7 +126,7 @@
 
 <script lang="ts" setup>
 import useTranslation from "~/composables/useTranslation";
-import { registerUser } from "~/services/auth.service";
+import useAuthRepo from "~/services/auth.service";
 import { useRouter } from "vue-router";
 import type { RegisterForm } from "~/schemas/valdation";
 import Button from "~/components/common/Button.vue";
@@ -134,6 +134,7 @@ import Button from "~/components/common/Button.vue";
 const t = useTranslation();
 const router = useRouter();
 const localPath = useLocalePath();
+const { registerUser } = useAuthRepo();
 
 const form = ref<RegisterForm>({
   firstName: "",

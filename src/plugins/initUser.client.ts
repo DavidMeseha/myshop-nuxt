@@ -1,10 +1,11 @@
 import { defineNuxtPlugin } from "#app";
-import { checkTokenValidity, getGuestToken } from "~/services/auth.service";
+import useAuthRepo from "~/services/auth.service";
 import { setToken } from "~/lib/localestorageAPI";
 import { useUserStore } from "~/stores/useUserStore";
 
 export default defineNuxtPlugin(async () => {
   const userStore = useUserStore();
+  const { checkTokenValidity, getGuestToken } = useAuthRepo();
 
   try {
     const res = await checkTokenValidity();

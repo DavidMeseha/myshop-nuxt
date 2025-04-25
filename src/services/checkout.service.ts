@@ -4,33 +4,41 @@ import type {
   IOrder,
   IProductAttribute,
 } from "../types";
-import { useFetchApi } from "../lib/fetch";
 
-export async function checkoutData() {
+export default function useCheckoutRepo() {
   const { $fetch } = useNuxtApp();
-  return $fetch<{
-    total: number;
-    cartItems: {
-      product: IFullProduct;
-      quantity: number;
-      attributes: IProductAttribute[];
-    }[];
-    addresses: IAddress[];
-  }>("/api/common/checkout", { method: "GET" });
-}
 
-export async function preperCardPayment() {
-  return useFetchApi<{ paymentSecret: string }>("/api/user/preperPayment", {
-    method: "GET",
-  });
-}
+  async function checkoutData() {
+    return $fetch<{
+      total: number;
+      cartItems: {
+        product: IFullProduct;
+        quantity: number;
+        attributes: IProductAttribute[];
+      }[];
+      addresses: IAddress[];
+    }>("/api/common/checkout", { method: "GET" });
+  }
 
-export function placeOrder(form: {
-  billingMethod: string;
-  shippingAddressId: string;
-}) {
-  return useFetchApi<IOrder>(`/api/user/order/submit`, {
-    method: "POST",
-    body: { ...form },
-  });
+  async function preperCardPayment() {
+    return $fetch<{ paymentSecret: string }>("/api/user/preperPayment", {
+      method: "GET",
+    });
+  }
+
+  function placeOrder(form: {
+    billingMethod: string;
+    shippingAddressId: string;
+  }) {
+    return $fetch<IOrder>(`/api/user/order/submit`, {
+      method: "POST",
+      body: { ...form },
+    });
+  }
+
+  return {
+    checkoutData,
+    preperCardPayment,
+    placeOrder,
+  };
 }

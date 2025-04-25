@@ -1,8 +1,8 @@
-import { addToCart, removeFromCart } from "~/services/userActions.service";
 import { useUserStore } from "~/stores/useUserStore";
 import type { FetchError, IFullProduct, IProductAttribute } from "~/types";
 import { usePopupStore } from "~/stores/popupStore";
 import AttributesPopup from "~/components/popups/AttributesPopup.vue";
+import useUserActionsRepo from "~/services/userActions.service";
 
 export type IAddToCartProduct = Pick<
   IFullProduct,
@@ -21,6 +21,7 @@ interface CartMutationProps {
 export default function useAddToCart({ product, onSuccess }: CartHookProps) {
   const { user, setCartItems } = useUserStore();
   const { openPopup, closePopup } = usePopupStore();
+  const { addToCart, removeFromCart } = useUserActionsRepo();
   const isLoading = ref(false);
 
   const openAttributePopup = () => {

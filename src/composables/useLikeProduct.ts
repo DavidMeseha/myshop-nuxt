@@ -1,4 +1,4 @@
-import { likeProduct, unLikeProduct } from "~/services/userActions.service";
+import useUserActionsRepo from "~/services/userActions.service";
 import { useUserStore } from "~/stores/useUserStore";
 import type { FetchError } from "~/types";
 
@@ -16,6 +16,7 @@ export default function useLikeProduct({
   onClick,
 }: Props) {
   const { user } = useUserStore();
+  const { likeProduct, unLikeProduct } = useUserActionsRepo();
   const isLoading = ref(false);
   const timeoutId = ref<number | null>(null);
   const { $toast } = useNuxtApp();

@@ -25,8 +25,13 @@
   />
 </template>
 <script lang="ts" setup>
-import { checkoutData } from "~/services/checkout.service";
+import useCheckoutRepo from "~/services/checkout.service";
 import Button from "~/components/common/Button.vue";
 
-const { data, status } = useAsyncData("checkoutCart", () => checkoutData());
+const { checkoutData } = useCheckoutRepo();
+
+const { data, status } = useAsyncData("checkoutCart", () => checkoutData(), {
+  default: () => ({ cartItems: [], total: 0, addresses: [] }),
+  server: false,
+});
 </script>

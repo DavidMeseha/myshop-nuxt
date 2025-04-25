@@ -12,6 +12,8 @@ const { product } = defineProps({
   customClass: String,
 });
 
+const localePath = useLocalePath();
+
 const cart = ref({ state: product.isInCart, count: product.carts });
 const like = ref({ state: product.isLiked, count: product.likes });
 const save = ref({ state: product.isSaved, count: product.saves });
@@ -73,7 +75,7 @@ const saveHandler = useSaveProduct({
       <div class="mt-2 flex flex-col gap-1 px-2 sm:px-4">
         <NuxtLink
           class="font-semibold text-gray-800 hover:underline"
-          :href="`/product/${product.seName}`"
+          :href="localePath(`/product/${product.seName}`)"
         >
           <span :title="product.name">{{ product.name }}</span>
         </NuxtLink>
@@ -81,7 +83,7 @@ const saveHandler = useSaveProduct({
           sold by:
           <NuxtLink
             class="hover:text-primary"
-            :href="`/vendor/${product.vendor.seName}`"
+            :href="localePath(`/vendor/${product.vendor.seName}`)"
           >
             {{ product.vendor.name }}
           </NuxtLink>

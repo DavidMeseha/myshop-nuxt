@@ -36,9 +36,19 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "~/components/ui/carousel";
-import { getTags } from "~/services/products.service";
+import useProductsRepo from "~/services/products.service";
+
+const { getTags } = useProductsRepo();
 
 const localPath = useLocalePath();
-const { data } = await getTags({ page: 1, limit: 5 });
-const tags = ref(data || []);
+const { data: tags } = useAsyncData(
+  "featuredTags",
+  () => getTags({ page: 1, limit: 10 }),
+  {
+    default: () => {
+      data: [];
+    },
+    server: false,
+  }
+);
 </script>
