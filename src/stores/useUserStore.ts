@@ -19,7 +19,6 @@ export const useUserStore = defineStore("user", {
     },
     async setCartItems() {
       const result = await getCartIds();
-      console.log(result);
       this.cartItems = result ?? [];
     },
   },

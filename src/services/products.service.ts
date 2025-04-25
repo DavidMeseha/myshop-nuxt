@@ -108,6 +108,10 @@ export default function useProductsRepo() {
     return $fetch<ITag>(`/api/Catalog/tag/${seName}`);
   }
 
+  async function getVendorInfo(seName: string) {
+    return $fetch<IVendor>(`/api/catalog/vendor/${seName}`);
+  }
+
   return {
     homeFeedProducts,
     getProductDetails,
@@ -122,5 +126,6 @@ export default function useProductsRepo() {
     getProductBySeName,
     getProductUserActions,
     getTagInfo,
+    getVendorInfo,
   };
 }

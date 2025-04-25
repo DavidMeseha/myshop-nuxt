@@ -10,7 +10,7 @@ const seName = route.params.seName as string;
 const { getTagInfo, getProductsByTag } = useProductsRepo();
 
 const sentinel = ref<HTMLDivElement | null>(null);
-const currentPage = ref(1);
+const nextPage = ref(1);
 const isLoadingMore = ref(false);
 const hasMore = ref(true);
 const products = ref<IFullProduct[]>([]);
@@ -19,20 +19,18 @@ const { data: tag } = await useAsyncData(`tag-${seName}`, () =>
   getTagInfo(seName)
 );
 
-const updateMetrics = (pages: Pagination) => {
-  currentPage.value = pages.hasNext ? currentPage.value + 1 : currentPage.value;
+const updatePaginationStates = (pages: Pagination) => {
+  nextPage.value = nextPage.value + 1;
   hasMore.value = pages.hasNext;
   isLoadingMore.value = false;
 };
 
-const { status } = await useAsyncData(
-  `products-${seName}`,
-  () =>
-    getProductsByTag(tag.value?._id ?? "", { page: 1 }).then((res) => {
-      products.value = res.data;
-      return res;
-    }),
-  { server: false }
+const { status } = await useAsyncData(`products-${seName}`, () =>
+  getProductsByTag(tag.value?._id ?? "", { page: 1 }).then((res) => {
+    products.value = res.data;
+    updatePaginationStates(res.pages);
+    return res;
+  })
 );
 
 const isLoading = computed(() => {
@@ -43,6 +41,12 @@ useIntersectionObserver(sentinel, ([{ isIntersecting }]) => {
   if (isIntersecting && hasMore.value && isLoading.value) {
     loadMore();
   }
+
+  nextTick(() => {
+    if (!isLoading.value && hasMore.value && isIntersecting) {
+      loadMore();
+    }
+  });
 });
 
 const loadMore = async () => {
@@ -52,10 +56,10 @@ const loadMore = async () => {
 
   try {
     const newData = await getProductsByTag(tag.value?._id ?? "", {
-      page: currentPage.value,
+      page: nextPage.value,
     });
 
-    updateMetrics(newData.pages);
+    updatePaginationStates(newData.pages);
     products.value = [...products.value, ...(newData.data ?? [])];
   } finally {
     isLoadingMore.value = false;
