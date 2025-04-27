@@ -1,5 +1,5 @@
 <template>
-  <SectionHeader title="Featured Products" />
+  <SectionHeader :title="$t('featuredProducts')" />
   <HomeCarousel>
     <CarouselItem
       v-if="!!products?.data && status === 'success'"

@@ -1,7 +1,12 @@
 <template>
   <Carousel class="w-full px-10" dir="ltr" :opts="{ align: 'start' }">
     <CarouselContent>
-      <CarouselItem v-for="tag in tags?.data" :key="tag._id" class="basis-auto">
+      <CarouselItem
+        v-if="status === 'success' && !!tags?.data"
+        v-for="tag in tags?.data"
+        :key="tag._id"
+        class="basis-auto"
+      >
         <NuxtLink
           class="flex items-center rounded-full border px-4 py-2 transition-colors hover:bg-slate-100"
           :href="localPath(`/tag/${tag.seName}`)"
@@ -14,6 +19,16 @@
             </p>
           </div>
         </NuxtLink>
+      </CarouselItem>
+      <CarouselItem
+        v-else
+        v-for="(_, index) in 8"
+        :key="index"
+        class="basis-auto"
+      >
+        <div class="rounded-full w-40 h-[54px]">
+          <Skeletor />
+        </div>
       </CarouselItem>
     </CarouselContent>
 
@@ -37,17 +52,18 @@ import {
   CarouselNext,
 } from "~/components/ui/carousel";
 import useProductsRepo from "~/services/products.service";
+import { Skeletor } from "vue-skeletor";
 
 const { getTags } = useProductsRepo();
 
 const localPath = useLocalePath();
-const { data: tags } = useAsyncData(
+const { data: tags, status } = useAsyncData(
   "featuredTags",
   () => getTags({ page: 1, limit: 10 }),
   {
-    default: () => {
-      data: [];
-    },
+    default: () => ({
+      data: [],
+    }),
     server: false,
   }
 );

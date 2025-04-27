@@ -3,9 +3,9 @@ import { useIntersectionObserver } from "@vueuse/core";
 import ProductsGrid from "~/components/products/ProductsGrid.vue";
 import useProductsRepo from "~/services/products.service";
 import type { IFullProduct, Pagination } from "~/types";
+import useVendorPageHead from '../../meta-composables/useVendorPageHead';
 
 const route = useRoute();
-const t = useTranslation();
 const seName = route.params.seName as string;
 const { getVendorInfo, getProductsByVendor } = useProductsRepo();
 
@@ -88,6 +88,8 @@ const loadMore = async () => {
     isLoadingMore.value = false;
   }
 };
+
+useVendorPageHead(vendor.value);
 </script>
 
 <template>

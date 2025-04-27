@@ -1,38 +1,17 @@
 import type { IFullProduct } from "~/types";
+import { useBaseSeoHead } from "./useBasePageHead";
 
 export default function useProductPageHead(product: IFullProduct | null) {
-  const route = useRoute();
-
-  return useHead(() => ({
+  useBaseSeoHead({
     title: product?.name ?? "Product",
-    meta: [
-      { name: "description", content: product?.shortDescription ?? "" },
-      { property: "og:title", content: product?.name ?? "Product" },
-      {
-        property: "og:description",
-        content: product?.shortDescription ?? "",
-      },
-      {
-        property: "og:image",
-        content: product?.pictures[0]?.imageUrl ?? "",
-      },
-      { property: "og:type", content: "product" },
-      {
-        property: "og:price:amount",
-        content: product?.price.price.toString() ?? "",
-      },
-      { property: "og:price:currency", content: "USD" },
-      { name: "twitter:card", content: "product" },
-      { name: "twitter:title", content: product?.name ?? "Product" },
-      {
-        name: "twitter:description",
-        content: product?.shortDescription ?? "",
-      },
-      {
-        name: "twitter:image",
-        content: product?.pictures[0]?.imageUrl ?? "",
-      },
-    ],
-    link: [{ rel: "canonical", href: `${route.path}` }],
-  }));
+    description: product?.shortDescription ?? "",
+    keywords: product
+      ? [product.name, product.category?.name, "shop", "product"]
+      : ["product", "shop"],
+    image: product?.pictures[0]?.imageUrl,
+    type: "product",
+    noindex: !product,
+    currency: "USD",
+    price: product?.price.price.toString(),
+  });
 }
