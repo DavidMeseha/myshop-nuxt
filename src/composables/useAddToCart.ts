@@ -26,7 +26,7 @@ export default function useAddToCart({ product, onSuccess }: CartHookProps) {
 
   const openAttributePopup = () => {
     openPopup(AttributesPopup, {
-      productId: product._id,
+      productId: product.seName,
       action: (attributes: IProductAttribute[]) =>
         addToCartMutation({ attributes, quantity: 1 }),
     });
