@@ -26,7 +26,7 @@ const updatePaginationStates = (pages: Pagination) => {
 };
 
 const { status } = await useAsyncData(`products-${seName}`, () =>
-  getProductsByTag(tag.value?._id ?? "", { page: 1 }).then((res) => {
+  getProductsByTag(seName, { page: 1 }).then((res) => {
     products.value = res.data;
     updatePaginationStates(res.pages);
     return res;
@@ -55,7 +55,7 @@ const loadMore = async () => {
   isLoadingMore.value = true;
 
   try {
-    const newData = await getProductsByTag(tag.value?._id ?? "", {
+    const newData = await getProductsByTag(tag.value?.seName ?? "", {
       page: nextPage.value,
     });
 

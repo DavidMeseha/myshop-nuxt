@@ -74,11 +74,11 @@ export default function useProductsRepo() {
     }>(`/api/catalog/CategoryProducts/${categoryId}`, { params });
   }
 
-  async function getProductsByTag(tagId: string, params: { page: number }) {
+  async function getProductsByTag(tagSeName: string, params: { page: number }) {
     return $fetch<{
       data: IFullProduct[];
       pages: Pagination;
-    }>(`/api/Catalog/TagProducts/${tagId}`, { params });
+    }>(`/api/v2/Catalog/tag/products/${tagSeName}`, { params });
   }
 
   async function getProductsByVendor(
