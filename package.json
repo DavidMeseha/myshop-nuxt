@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev -p 3001",
+    "dev": "nuxt dev -p 3002",
     "generate": "nuxt generate",
-    "preview": "nuxt preview -p 3001",
+    "preview": "nuxt preview -p 3002",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -46,6 +46,7 @@
     "@nuxt/schema": "^3.16.1",
     "@nuxt/types": "^2.18.1",
     "@nuxtjs/i18n": "^9.3.4",
+    "@originjs/vite-plugin-federation": "^1.4.1",
     "@types/node": "^22.14.0",
     "nuxt": "^3.16.1",
     "shadcn-nuxt": "^1.0.3",

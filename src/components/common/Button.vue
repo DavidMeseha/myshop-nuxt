@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import LoadingSpinner from "./LoadingSpinner.vue";
-import { cn } from "~/lib/utils";
+import { cn } from "../../lib/utils";
 
 defineProps({
   loading: {

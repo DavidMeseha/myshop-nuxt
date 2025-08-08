@@ -1,5 +1,60 @@
+import federation from "@originjs/vite-plugin-federation";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  vite: {
+    plugins: [
+      federation({
+        name: 'nuxt_mfe',
+        filename: 'remoteEntry.js',
+        exposes: {
+          './FeaturedTags': './src/components/products/FeaturedTags.vue'
+        },
+        shared: []
+      })
+    ],
+    build: {
+      target: 'esnext',
+      minify: false, // Keep false during debugging
+      cssCodeSplit: false,
+      rollupOptions: {
+        // THE CRITICAL SOLUTION:
+        output: {
+          // APPROACH 1 (Recommended):
+          inlineDynamicImports: true,
+          manualChunks: undefined, // Must be undefined when inlineDynamicImports is true
+          
+          // OR APPROACH 2 (Alternative):
+          // inlineDynamicImports: false,
+          // manualChunks: () => 'all',
+          
+          // REQUIRED FOR BOTH APPROACHES:
+          preserveModules: false,
+          hoistTransitiveImports: false,
+          generatedCode: 'es2015'
+        },
+        treeshake: false // Disable for component stability
+      }
+    }
+  },
+
+  experimental: {
+    payloadExtraction: false,
+    externalVue: false // Important for Vue bundling
+  },
+
+  build: {
+    minify: 'terser',
+    sourcemap: false // Recommended for debugging
+  },
+
+  nitro: {
+    compressPublicAssets: {
+      gzip: true,
+      brotli: true
+    }
+  },
+
   components: true,
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
@@ -67,7 +122,9 @@ export default defineNuxtConfig({
     exposeConfig: true,
     viewer: true,
   },
-  typescript: { strict: true },
+  typescript: { strict: true,
+    shim: false,
+   },
   routeRules: {
     "/**": { appMiddleware: "save-last-page" },
   },
