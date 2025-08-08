@@ -2,9 +2,8 @@
   <div class="error-container">
     <h1>Server Maintenance</h1>
     <p>
-      The developer's server bill could not be verified, so we appreciate your
-      patience. The server is currently down—please try again later. Thank you
-      for your understanding!
+      My server bill could not be verified, The server is currently down, please
+      try again later. Thank you for your understanding!
     </p>
     <button @click="handleRetry">Retry</button>
   </div>
