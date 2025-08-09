@@ -21,12 +21,17 @@ export default defineNuxtPlugin((nuxtApp) => {
         router.push("/login");
       } else if (response.status >= 500) {
         console.error("Server error:", response._data || response.statusText);
-        showError({
-          statusCode: 503,
-          statusMessage: "Server Unavailable",
-          message: "Our servers are down. Please try again later.",
-        });
       }
+
+      throw new Error("errror");
+    },
+
+    onRequestError({ error }) {
+      console.error("Request error:", error);
+      console.log(error);
+      showError(
+        "My api server pill needs to be paied, be patiant and try again later, thanks for understanding!"
+      );
     },
   });
 
